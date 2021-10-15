@@ -25,14 +25,14 @@ client.on('message', message => {
 })
 
 const altName = ['Mondei', 'Tvesdei', 'Vednesdei', 'Sărzdei', 'Freidei', 'Seturdei', 'Sandei'];
-const date = new Date().toLocaleString('en-GB', { timeZone: 'Europe/Athens' });
+const date = new Date().toLocaleDateString('en-GB', { timeZone: 'Europe/Athens' });
 
 function change() {
     console.log(date);
     console.log(day);
     console.log(newName);
     console.log(channel);
-    
+
     var channel =  client.channels.cache.get('698958944122699878');
     var day = date.getDay();
     var newName = 'Welfare ' + altName[day-1];
