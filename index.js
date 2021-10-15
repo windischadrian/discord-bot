@@ -12,14 +12,12 @@ client.on("ready", () => {
 })
 
 client.on('message', message => {
-    const messageText = String(message.content.toLowerCase);
     if (message.author.bot) return;
 
     const regex = /\b(?=\w*m)(?=\w*i)(?=\w*a)(?=\w*u)\w+/g;
-    if (messageText.match(regex)) {
-        console.log(message)
+    if (message.content.toLowerCase.match(regex)) {
         message.reply('Imi bag pula in mieunatu tau coaie');
-    } else if (messageText.includes('babilon')) {
+    } else if (message.content.toLowerCase.includes('babilon')) {
         message.reply('Baga-ti-as babilonu in cur');
     }
 
