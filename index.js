@@ -25,7 +25,7 @@ client.on('message', message => {
 })
 
 const altName = ['Mondei', 'Tvesdei', 'Vednesdei', 'Sărzdei', 'Freidei', 'Seturdei', 'Sandei'];
-const date = new Date().toLocaleString('en-GB', { timeZone: 'Europe/Bucharest' });
+const date = new Date().toLocaleString('en-GB', { timeZone: 'Europe/Athens' });
 
 function change() {
     var channel =  client.channels.cache.get('698958944122699878');
