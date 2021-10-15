@@ -12,7 +12,7 @@ client.on("ready", () => {
 })
 
 client.on('message', message => {
-    var messageText = message.content.toLowerCase;
+    const messageText = String(message.content.toLowerCase);
     if (message.author.bot) return;
 
     const regex = /\b(?=\w*m)(?=\w*i)(?=\w*a)(?=\w*u)\w+/g;
