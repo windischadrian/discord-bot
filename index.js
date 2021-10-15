@@ -34,4 +34,5 @@ function change() {
     channel.setName(newName);
 }
 
+
 setInterval(change, 1000000);
