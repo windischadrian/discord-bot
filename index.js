@@ -19,6 +19,8 @@ client.on('message', message => {
     } else if (message.content.includes('babilon')) {
         message.reply('Baga-ti-as babilonu in cur');
     }
+
+    await client.process
 })
 
 const altName = ['Mondei', 'Tvesdei', 'Vednesdei', 'Sărzdei', 'Freidei', 'Seturdei', 'Sandei'];
@@ -28,7 +30,6 @@ function change() {
     var channel =  client.channels.cache.get('698958944122699878');
     var day = date.getDay();
     var newName = 'Welfare ' + altName[day-1];
-
 
     channel.setName(newName);
 }
