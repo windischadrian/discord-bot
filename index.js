@@ -34,6 +34,7 @@ function change() {
 
     channel.setName(newName);
     console.log(client.channels.cache);
+    console.log(channel);
 }
 
 
