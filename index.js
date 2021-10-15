@@ -20,7 +20,6 @@ client.on('message', message => {
         message.reply('Baga-ti-as babilonu in cur');
     }
 
-    await client.process
 })
 
 const altName = ['Mondei', 'Tvesdei', 'Vednesdei', 'Sărzdei', 'Freidei', 'Seturdei', 'Sandei'];
