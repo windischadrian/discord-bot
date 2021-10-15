@@ -14,7 +14,7 @@ client.on("ready", () => {
 client.on('message', message => {
     if (message.author.bot) return;
 
-    if (message.content.match('/[m*i*a*u*]\w')) {
+    if (message.content.iincludes('babilon')) {
         message.reply('Imi bag pula in mieunatu tau coaie');
     } else if (message.content.includes('babilon')) {
         message.reply('Baga-ti-as babilonu in cur');
