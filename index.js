@@ -12,9 +12,7 @@ client.on("ready", () => {
 })
 
 client.on('message', message => {
-    if (message.author.bot) {
-        return
-    }
+    if (message.author.bot) return;
     if (message.content.match('m*i*a*u*') {
         message.reply('Imi bag pula in mieunatu tau coaie');
     }
