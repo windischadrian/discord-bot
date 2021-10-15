@@ -33,7 +33,7 @@ function change() {
     var newName = 'Welfare ' + altName[day-1];
 
     channel.setName(newName);
-    console.log(client.channels.cache);
+    console.log(newName);
     console.log(channel);
 }
 
