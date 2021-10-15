@@ -12,9 +12,10 @@ client.on("ready", () => {
 })
 
 client.on('message', message => {
+    message = message.toLowerCase;
     if (message.author.bot) return;
 
-    const regex = /(?i)\b(?=\w*m)(?=\w*i)(?=\w*a)(?=\w*u)\w+/g;
+    const regex = /\b(?=\w*m)(?=\w*i)(?=\w*a)(?=\w*u)\w+/g;
     if (message.content.match(regex)) {
         console.log(message)
         message.reply('Imi bag pula in mieunatu tau coaie');
