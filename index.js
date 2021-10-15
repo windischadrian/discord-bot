@@ -16,8 +16,7 @@ client.on('message', message => {
 
     if (message.content.match('[m*i*a*u*]')) {
         message.reply('Imi bag pula in mieunatu tau coaie');
-    }
-    if (message.content.includes('babilon')) {
+    } else if (message.content.includes('babilon')) {
         message.reply('Baga-ti-as babilonu in cur');
     }
 })
