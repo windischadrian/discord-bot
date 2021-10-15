@@ -14,8 +14,9 @@ client.on("ready", () => {
 client.on('message', message => {
     if (message.author.bot) return;
 
-    const regex = /(?i)\b(?=\w*m)(?=\w*a)(?=\w*h)(?=\w*d)\w+/g;
+    const regex = /\b(?=\w*m)(?=\w*a)(?=\w*h)(?=\w*d)\w+/g;
     if (message.content.match(regex)) {
+        console.log(message)
         message.reply('Imi bag pula in mieunatu tau coaie');
     } else if (message.content.includes('babilon')) {
         message.reply('Baga-ti-as babilonu in cur');
