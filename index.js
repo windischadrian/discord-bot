@@ -15,9 +15,9 @@ client.on('message', message => {
     if (message.author.bot) return;
 
     const regex = /\b(?=\w*m)(?=\w*i)(?=\w*a)(?=\w*u)\w+/g;
-    if (message.content.toLowerCase.match(regex)) {
+    if (message.content.match(regex)) {
         message.reply('Imi bag pula in mieunatu tau coaie');
-    } else if (message.content.toLowerCase.includes('babilon')) {
+    } else if (message.content.includes('babilon')) {
         message.reply('Baga-ti-as babilonu in cur');
     }
 
