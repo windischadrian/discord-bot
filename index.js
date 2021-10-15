@@ -21,7 +21,6 @@ client.on('message', message => {
     }
 })
 
-// 898597432437399645
 const altName = ['Mondei', 'Tvesdei', 'Vednesdei', 'Sărzdei', 'Freidei', 'Seturdei', 'Sandei'];
 const date = new Date();
 
@@ -29,7 +28,9 @@ function change() {
     var channel =  client.channels.cache.get('698958944122699878');
     var day = date.getDay();
     var newName = 'Welfare ' + altName[day-1];
-    // channel.setName(newName);
+
+
+    channel.setName(newName);
 }
 
-setInterval(change, 100000);
+setInterval(change, 1000000);
