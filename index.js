@@ -1,0 +1,32 @@
+require('dotenv').config()
+
+const { Client, Intents } = require('discord.js');
+const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
+
+client.login(process.env.BOT_TOKEN)
+
+client.on("ready", () => {
+    console.log("Bot is ready");
+    client.channels.cache.get('898597432437399644').send('Bot ready');
+    change();
+
+})
+
+client.on('message', message => {
+    if (message.content.includes('miau')) {
+        message.reply('Imi bag pula in mieunatu tau coaie');
+    }
+})
+
+// 898597432437399645
+const altName = ['Mondei', 'Tvesdei', 'Vednesdei', 'Sărzdei', 'Freidei', 'Seturdei', 'Sandei'];
+const date = new Date();
+
+function change() {
+    var channel =  client.channels.cache.get('698958944122699878');
+    var day = date.getDay();
+    var newName = 'Welfare ' + altName[day-1];
+    channel.setName(newName);
+}
+
+setInterval(change, 100000);
