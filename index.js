@@ -16,8 +16,7 @@ client.on('message', message => {
 
     const messageText = message.content.toLowerCase();
 
-    const regex = /\b(?=\w*m)(?=\w*i)(?=\w*a)(?=\w*u)\w+/g;
-    if (messageText.match(regex)) {
+    if (messageText.includes('miau')) {
         message.reply('Imi bag pula in mieunatu tau coaie');
     } else if (messageText.includes('babilon')) {
         message.reply('Baga-ti-as babilonu in cur');
