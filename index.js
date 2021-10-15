@@ -7,14 +7,16 @@ client.login(process.env.BOT_TOKEN)
 
 client.on("ready", () => {
     console.log("Bot is ready");
-    client.channels.cache.get('898597432437399644').send('Bot ready');
     change();
 
 })
 
 client.on('message', message => {
-    if (message.content.includes('miau')) {
+    if (message.content.match('m*i*a*u*') && !message.author.bot) {
         message.reply('Imi bag pula in mieunatu tau coaie');
+    }
+    if (message.content.includes('babilon')) {
+        message.reply('Baga-ti-as babilonu in cur');
     }
 })
 
@@ -26,7 +28,7 @@ function change() {
     var channel =  client.channels.cache.get('698958944122699878');
     var day = date.getDay();
     var newName = 'Welfare ' + altName[day-1];
-    channel.setName(newName);
+    // channel.setName(newName);
 }
 
 setInterval(change, 100000);
