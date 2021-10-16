@@ -34,7 +34,8 @@ function hei(message, messageText) {
     } else if (messageText.match(/(arici|arici\?|arici \?)$/)) {
         message.reply('Du-te-n pula mea de aici');
     } else if (messageText.match(/(sinucid|suicid|ma omor)/)) {
-        message.reply(bahoiSuicid);
+        console.log(bahoiSuicid);
+        // message.reply(bahoiSuicid);
     }
 }
 
