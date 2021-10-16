@@ -2,7 +2,7 @@ require('dotenv').config()
 
 const { Client, Intents } = require('discord.js');
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
-const cron = require('cron').CronJob;
+const CronJob = require('cron').CronJob;
 client.login(process.env.BOT_TOKEN);
 
 client.on("ready", () => {
@@ -38,7 +38,7 @@ function change() {
 
 setInterval(change, 1000000);
 
-const cafelutsaCronJob = new CronJob('* 35 12 * * *', () => {
+const cafelutsaCronJob = new CronJob('* 40 12 * * *', () => {
     var generalTextChannel = client.channel.cache.get('788439966975000576');
 
     generalTextChannel.send('Va urez spor la cafelutsa si sa aveti o zi minunata!');
