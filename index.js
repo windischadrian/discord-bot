@@ -38,8 +38,8 @@ function change() {
 
 setInterval(change, 1000000);
 
-const cafelutsaCronJob = (client) => new CronJob('* 53 12 * * *', () => {
-    var generalTextChannel = client.channel.cache.get('788439966975000576');
+const cafelutsaCronJob = (client) => new CronJob('* 55 12 * * *', () => {
+    var generalTextChannel = client.channels.cache.get('788439966975000576');
 
     generalTextChannel.send('Va urez spor la cafelutsa si sa aveti o zi minunata!');
     console.log('Sporing at cafelutsa was successful');
