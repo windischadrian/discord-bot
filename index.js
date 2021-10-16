@@ -38,13 +38,6 @@ function change() {
 
 setInterval(change, 1000000);
 
-const job = cron.schedule("* 25 12 * * *", function sporLaCafelutsa(time) {
-    var generalTextChannel = client.channel.cache.get('788439966975000576');
-
-    generalTextChannel.send('Va urez spor la cafelutsa si sa aveti o zi minunata!');
-
-});
-
 const cafelutsaCronJob = new CronJob('* 35 12 * * *', () => {
     var generalTextChannel = client.channel.cache.get('788439966975000576');
 

@@ -8,6 +8,6 @@ git push
 
 git push heroku main
 
-sleep(5000)
+wait 5000
 
 heroku logs
