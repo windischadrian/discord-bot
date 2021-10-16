@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "cron": "^1.8.2",
     "datetime": "^0.0.3",
     "discord.js": "^13.2.0",
     "dotenv": "^10.0.0",
