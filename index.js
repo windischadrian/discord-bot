@@ -2,7 +2,7 @@ require('dotenv').config()
 
 const { Client, Intents } = require('discord.js');
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
-const cron = require("node-cron");
+const cron = require('cron').CronJob;
 client.login(process.env.BOT_TOKEN);
 
 client.on("ready", () => {
@@ -28,9 +28,6 @@ const altName = ['Mondei', 'Tvesdei', 'Vednesdei', 'Sărzdei', 'Freidei', 'Setur
 const date = new Date();
 
 function change() {
-    console.log(date);
-    console.log(date.toLocaleDateString());
-    console.log(date.toLocaleString());
 
     var welfareVoiceChannel =  client.channels.cache.get('698958944122699878');
     var day = date.getDay();
@@ -47,3 +44,11 @@ const job = cron.schedule("* 25 12 * * *", function sporLaCafelutsa(time) {
     generalTextChannel.send('Va urez spor la cafelutsa si sa aveti o zi minunata!');
 
 });
+
+const cafelutsaCronJob = new CronJob('* 35 12 * * *', () => {
+    var generalTextChannel = client.channel.cache.get('788439966975000576');
+
+    generalTextChannel.send('Va urez spor la cafelutsa si sa aveti o zi minunata!');
+    console.log('Sporing at cafelutsa was successful');
+}, null, true, 'Europe/Bucharest');
+cafelutsaCronJob.start();
