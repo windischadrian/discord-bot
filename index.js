@@ -3,7 +3,7 @@ require('dotenv').config()
 const { Client, Intents } = require('discord.js');
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
 const CronJob = require('cron').CronJob;
-const { bahoiSuicid } = require('./bahoi.js');
+import { bahoiSuicid } from './bahoi';
 client.login(process.env.BOT_TOKEN);
 
 client.on("ready", () => {
