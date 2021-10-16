@@ -3,6 +3,7 @@ require('dotenv').config()
 const { Client, Intents } = require('discord.js');
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
 const CronJob = require('cron').CronJob;
+const bahoiSuicid = require('./bahoi.js');
 client.login(process.env.BOT_TOKEN);
 
 client.on("ready", () => {
@@ -31,6 +32,8 @@ function hei(message, messageText) {
         message.reply('In cur ma lingi');
     } else if (messageText.match(/(arici|arici\?|arici \?)$/)) {
         message.reply('Du-te-n pula mea de aici');
+    } else if (messageText.match(/(sinucid|suicid|ma omor)/)) {
+        message.reply(bahoiSuicid);
     }
 }
 
