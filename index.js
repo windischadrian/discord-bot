@@ -29,6 +29,8 @@ function hei(message, messageText) {
         message.reply('De pula sa ma iei hei hei');
     } else if (messageText.endsWith('5') || messageText.endsWith('cinci')) {
         message.reply('In cur ma lingi');
+    } else if (messageText.match(/(arici|arici\?|arici \?)$/)) {
+        message.reply('Du-te-n pula mea de aici');
     }
 }
 
