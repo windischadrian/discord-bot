@@ -7,7 +7,7 @@ client.login(process.env.BOT_TOKEN);
 
 client.on("ready", () => {
     console.log("Bot is ready");
-    cafelutsaCronJob.start();
+    cafelutsaCronJob(client).start();
     change();
 })
 
@@ -38,7 +38,7 @@ function change() {
 
 setInterval(change, 1000000);
 
-const cafelutsaCronJob = new CronJob('* 50 12 * * *', () => {
+const cafelutsaCronJob = (client) => new CronJob('* 53 12 * * *', () => {
     var generalTextChannel = client.channel.cache.get('788439966975000576');
 
     generalTextChannel.send('Va urez spor la cafelutsa si sa aveti o zi minunata!');
