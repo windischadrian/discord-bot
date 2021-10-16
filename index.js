@@ -20,9 +20,17 @@ client.on('message', message => {
         message.reply('Imi bag pula in mieunatu tau coaie');
     } else if (messageText.includes('babilon')) {
         message.reply('Baga-ti-as babilonu in cur');
-    }
+    } else hei(message, messageText);
 
 })
+
+function hei(message, messageText) {
+    if (messageText.match(/(ei|3)$/)) {
+        message.reply('De pula sa ma iei hei hei');
+    } else if (messageText.endsWith('5')) {
+        message.reply('In cur ma lingi');
+    }
+}
 
 const altName = ['Mondei', 'Tvesdei', 'Vednesdei', 'Sărzdei', 'Freidei', 'Seturdei', 'Sandei'];
 const date = new Date();
