@@ -29,6 +29,8 @@ const date = new Date();
 
 function change() {
     console.log(date);
+    console.log(date.toLocaleDateString());
+    console.log(date.toLocaleString());
 
     var welfareVoiceChannel =  client.channels.cache.get('698958944122699878');
     var day = date.getDay();
