@@ -38,7 +38,7 @@ function change() {
 
 setInterval(change, 1000000);
 
-const cafelutsaCronJob = (client) => new CronJob('* 55 12 * * *', () => {
+const cafelutsaCronJob = (client) => new CronJob('00 59 12 * * *', () => {
     var generalTextChannel = client.channels.cache.get('788439966975000576');
 
     generalTextChannel.send('Va urez spor la cafelutsa si sa aveti o zi minunata!');
