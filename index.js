@@ -24,6 +24,7 @@ client.on('message', message => {
         message.reply('Baga-ti-as babilonu in cur');
     } else hei(message, messageText);
 
+    
 })
 
 function hei(message, messageText) {
@@ -46,6 +47,8 @@ function change() {
 
     var welfareVoiceChannel =  client.channels.cache.get('698958944122699878');
     var day = date.getDay();
+    console.log(day);
+    console.log(altName[day-1]);
     var newName = 'Welfare ' + altName[day-1];
 
     welfareVoiceChannel.setName(newName);
