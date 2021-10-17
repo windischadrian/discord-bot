@@ -40,16 +40,14 @@ function hei(message, messageText) {
     }
 }
 
-const altName = ['Mondei', 'Tvesdei', 'Vednesdei', 'Sărzdei', 'Freidei', 'Seturdei', 'Sandei'];
+const altName = ['Sandei', 'Mondei', 'Tvesdei', 'Vednesdei', 'Sărzdei', 'Freidei', 'Seturdei', ];
 const date = new Date();
 
 function change() {
 
     var welfareVoiceChannel =  client.channels.cache.get('698958944122699878');
     var day = date.getDay();
-    console.log(day);
-    console.log(altName[day-1]);
-    var newName = 'Welfare ' + altName[day-1];
+    var newName = 'Welfare ' + altName[day];
 
     welfareVoiceChannel.setName(newName);
 }
