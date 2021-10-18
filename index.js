@@ -256,7 +256,7 @@ function executeQueueueueCommand(message) {
         var totalDuration = 0;
         var i = 1;
         serverQueue.songs.forEach(song => {
-            qMessage+= `**${i} - ${song.title} - ${song.duration}**`;
+            qMessage+= `**${i} - ${song.title} - ${song.duration}**\n`;
             totalDuration+=song.durationSeconds;
             i++;
         });
