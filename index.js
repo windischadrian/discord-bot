@@ -142,7 +142,6 @@ async function executePlayCommand(message, voiceChannel) {
             audioName=audioName.trim();
             songInfo = await searchYoutubeByUrlAsync(audioName);
         }
-        console.log(songInfo);
         const song = {
             title: songInfo.title,
             url: songInfo.url,
@@ -188,12 +187,7 @@ async function play(message) {
     }
 
     try {
-        const stream = await playdl.stream(song.url, {
-            proxy: [{
-                host: '89.36.160.205',
-                port: 4153
-            }]
-        });
+        const stream = await playdl.stream(song.url);
         let resource = createAudioResource(stream.stream, {
             inputType: stream.type
         })
