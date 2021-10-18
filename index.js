@@ -344,7 +344,7 @@ const cafelutsaCronJob = (client) => new CronJob('00 00 09 * * *', () => {
 
 }, null, true, 'Europe/Bucharest');
 
-bot.on('voiceStateUpdate', (oldMember, newMember) => {
+await bot.on('voiceStateUpdate', (oldMember, newMember) => {
     let newUserChannel = newMember.voice.channel;
     let oldUserChannel = oldMember.voice.channel;
     const date = new Date();
