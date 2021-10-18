@@ -139,9 +139,7 @@ async function executePlayCommand(message, voiceChannel) {
         if (!audioName.includes('www.youtube.com/watch?v=')) {
             songInfo = await searchYoutubeAsync(audioName);
         } else {
-            console.log(audioName);
-            audioName.trim();
-            console.log(audioName);
+            audioName+=audioName.trim();
             songInfo = await searchYoutubeByUrlAsync(audioName);
         }
  
