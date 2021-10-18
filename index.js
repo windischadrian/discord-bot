@@ -251,9 +251,9 @@ function executeQueueueueCommand(message) {
             totalDuration+=song.durationSeconds;
             i++;
         });
-        var date = new Date();
+        var date = new Date(null);
         date.setSeconds(totalDuration);
-        qMessage+=`\nTotal queueueueueueue duration:${date.toISOString.substr(11,8)}`
+        qMessage+=`\nTotal queueueueueueue duration:${date.toISOString().substr(11,8)}`
         message.channel.send(qMessage);
     } catch (err) {
         return message.reply(`Shit went sideways\n${err}`);
