@@ -73,7 +73,7 @@ client.on("message", async message => {
 
     if(messageText.startsWith(`${prefix}set`)) executeSetCommand(message);
     
-    if(messageText.startsWith(`${prefix}delete `)) executeDeleteCommand(message);
+    if(messageText.startsWith(`${prefix}delete `) || messageText.startsWith(`${prefix}remove `)) executeDeleteCommand(message);
 
     messageText = messageText.toLowerCase();
     
