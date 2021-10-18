@@ -62,7 +62,8 @@ client.on("message", async message => {
 
     if(messageText.startsWith(`${prefix}leave`)) voiceChannelLeave(message);
 
-    if(messageText.startsWith(`${prefix}play`) || messageText.startsWith(`${prefix}p`)) executePlayCommand(message, voiceChannel);
+    if(messageText.startsWith(`${prefix}play`)) executePlayCommand(message, voiceChannel);
+    if(messageText.startsWith(`${prefix}p`)) executePCommand(message, voiceChannel);
 
     if(messageText.startsWith(`${prefix}skip`)) executeSkipCommand(message);
 
@@ -121,9 +122,18 @@ function voiceChannelLeave(message) {
     queue.delete(message.guild.id);
 }
 
+async function executePCommand(message, voiceChannel) {
+    audioName = message.content.substr(`${prefix}p`.length);
+    executePlay(audioName, message, voiceChannel);
+}
+
 async function executePlayCommand(message, voiceChannel) {
-    const messageChannel = message.channel;
     audioName = message.content.substr(`${prefix}play`.length);
+    executePlay(audioName, message, voiceChannel);
+}
+
+async function executePlay(audioName, message, voiceChannel) {
+    const messageChannel = message.channel;
     if (!voiceChannel) return message.reply("You need to be in a voice channel.");
 
     if (!audioName) return message.reply("Forgot song title?");
@@ -189,7 +199,9 @@ async function play(message) {
     }
 
     try {
-        const stream = await playdl.stream(song.url);
+        const stream = await playdl.stream(song.url, {
+            quality : 1
+        });
         let resource = createAudioResource(stream.stream, {
             inputType: stream.type
         })
