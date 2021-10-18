@@ -343,3 +343,21 @@ const cafelutsaCronJob = (client) => new CronJob('00 00 09 * * *', () => {
     generalTextChannel.send('Va urez spor la cafelutsa si sa aveti o zi minunata!');
 
 }, null, true, 'Europe/Bucharest');
+
+bot.on('voiceStateUpdate', (oldMember, newMember) => {
+    let newUserChannel = newMember.voice.channel;
+    let oldUserChannel = oldMember.voice.channel;
+    const date = new Date();
+    if(newUserChannel === "698958944122699878")
+    { 
+        await newMember.createDM();
+        await newMember.send(`Ia te uita, e ora ${date.toLocaleTimeString()}, ora perfecta sa sugi pula.`)
+    }
+
+    if(oldUserChannel === "698958944122699878")
+    { 
+        await oldMember.createDM();
+        await oldMember.send(`Ai plecat sa sugi pula, este?`);
+    }
+
+ });
