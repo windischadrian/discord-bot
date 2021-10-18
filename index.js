@@ -10,29 +10,37 @@ const {
     NoSubscriberBehavior
 } = require('@discordjs/voice');
 const client = new Client({ intents: ["GUILDS", "GUILD_MESSAGES", "GUILD_VOICE_STATES"] });
-client.login(process.env.BOT_TOKEN);
 const CronJob = require('cron').CronJob;
 const bahoiSuicid = 'Oricâte probleme ai avea, nu-i bine să te omori ca țăranu...te omori ieee ca pizdele alea \'mă omor miaaa\', dar tu nu mai exiști, adică tu crezi că ajungi in altă lume și pula mea cu spiritul tău..NU! Spiritul rămane...in pizda mă-tii1 Știți ce e important? Să futi, să te distrezi, să bei, mici, bere, ăăăă și toate cele, pepeni, struguri, ciorchini, toate distracțiile toate panaramele sunt atâtea carusele sunt atâtea mașinării care să apeși pe butoane sunt atâtea magarii sa canti sa vioara sa toate alea ce dracu ma te omori ce pizda mă-...psaico maico ca esti bolnav la cap că nu te placi ca pula mea ca pula-n pizdă da mai lasă-mă-n pula mea crezi ca mă omor acuma ca dacă nu mai nu stiu ce mai lasă nu știu ce...\'mă omor\' vai băga-mi-aș pula-n mă-ta te omori? Mai lasă-mă in pula mea cu omorâtu pizdii.';
 const playdl = require('play-dl');
-const commandFiles = fs.readdirSync("./commands").filter(file => file.endsWith(".js"));
 const prefix = '?';
-
-// Collection of commands
-client.commands = new Discord.Collection();
-
 isready = false;
 
 const queue = new Map();
 
-const commands = fs.readdirSync("./commands").filter(file => file.endsWith(".js"));
-for (const file of commands) {
-  const commandName = file.split(".")[0];
-  const command = require(`./commands/${file}`);
+/*
+const queueConstruct = {
+    textChannel: message.channel,
+    voiceChannel: voiceChannel,
+    connection: null,
+    musicStream: createAudioPlayer(),
+    songs: [],
+    search: [],
+    volume: 5,
+    playing: true,
+    leaveTimer: null /* 20 seconds in question 
+  };
+  */
+  //queue.set('1234567812345678', queueContruct);
+  
+  // 2. get queueContruct from queue
+  //const serverQueue = queue.get('1234567812345678');
+  //if(!serverQueue) { /* not exist */ }
+  
+  // 3. delete from queue
+  //queue.delete('1234567812345678');
 
-  console.log(`Attempting to load command ${commandName}`);
-  client.commands.set(command.name, command);
-}
-
+client.login(process.env.BOT_TOKEN);
 
 client.on("ready", () => {
     isReady = true;
@@ -47,14 +55,15 @@ client.on("message", async message => {
     if (!isReady) return;
     if (message.author.bot) return;
 
+    let voiceChannel = message.member.voice.channel;
     let messageText = message.content;
     
-    if(messageText.startsWith(`${prefix}join`)) voiceChannelJoin(message);
+    if(messageText.startsWith(`${prefix}join`)) voiceChannelJoin(message, voiceChannel);
 
     if(messageText.startsWith(`${prefix}leave`)) voiceChannelLeave(message);
 
-    if(messageText.startsWith(`${prefix}p `)) executePCommand(message);
-    if(messageText.startsWith(`${prefix}play `)) executePlayCommand(message);
+    if(messageText.startsWith(`${prefix}p `)) executePCommand(message, voiceChannel);
+    if(messageText.startsWith(`${prefix}play `)) executePlayCommand(message, voiceChannel);
 
     if(messageText.startsWith(`${prefix}skip`)) executeSkipCommand(message);
 
@@ -70,8 +79,7 @@ client.on("message", async message => {
 
 })
 
-function voiceChannelJoin(message) {
-    let voiceChannel = message.member.voice.channel;
+function voiceChannelJoin(message, voiceChannel) {
     if (!voiceChannel) return message.reply("You need to be in a voice channel.");
         
     if (queue.get(message.guild.id)) return message.reply("Already connected to a voice channel.");
@@ -114,18 +122,17 @@ function voiceChannelLeave(message) {
     queue.delete(message.guild.id);
 }
 
-async function executePCommand(message) {
+async function executePCommand(message, voiceChannel) {
     audioName = message.content.substr(`${prefix}p `.length);
-    executePlay(audioName, message);
+    executePlay(audioName, message, voiceChannel);
 }
 
-async function executePlayCommand(message) {
+async function executePlayCommand(message, voiceChannel) {
     audioName = message.content.substr(`${prefix}play `.length);
-    executePlay(audioName, message);
+    executePlay(audioName, message, voiceChannel);
 }
 
-async function executePlay(audioName, message) {
-    let voiceChannel = message.member.voice.channel;
+async function executePlay(audioName, message, voiceChannel) {
     const messageChannel = message.channel;
     if (!voiceChannel) return message.reply("You need to be in a voice channel.");
 
@@ -329,15 +336,16 @@ const cafelutsaCronJob = (client) => new CronJob('00 00 09 * * *', () => {
 
 client.on('voiceStateUpdate', async (oldState, newState) => {
     const date = new Date();
-    var exclusions = ['215850233194741760'];
+    console.log('Stuff happened. ')
+    console.log(oldState)
     console.log(newState)
-    if(newState.channelId === "698958944122699878" && !exclusions.includes(newState.member.id))
+    if(newState.channelId === "698958944122699878")
     { 
         await newState.member.createDM();
         await newState.member.send(`Ia te uita, e ora ${date.toLocaleTimeString()}, ora perfecta sa sugi pula.`)
     }
 
-    if(oldState.channelId === "698958944122699878" && !exclusions.includes(newState.member.id))
+    if(oldState.channelId === "698958944122699878")
     { 
         await oldState.member.createDM();
         await oldState.member.send(`Ai plecat sa sugi pula, este?`);
