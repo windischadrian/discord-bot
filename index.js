@@ -334,7 +334,7 @@ const cafelutsaCronJob = (client) => new CronJob('00 00 09 * * *', () => {
 
 }, null, true, 'Europe/Bucharest');
 
-client.on('voiceStateUpdate', (oldState, newState) {
+client.on('voiceStateUpdate', async (oldState, newState) => {
     const date = new Date();
     console.log('Stuff happened. ')
     console.log(oldState)
