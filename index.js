@@ -140,17 +140,14 @@ async function executePlayCommand(message, voiceChannel) {
             songInfo = await searchYoutubeAsync(audioName);
         } else {
             audioName.trim();
-            songInfo = {
-                title: 'Plm e d-aia cu link',
-                url: audioName,
-                duration: '00:00'
-            }
+            songInfo = await searchYoutubeByUrlAsync(audioName);
         }
  
         const song = {
             title: songInfo.title,
             url: songInfo.url,
             duration: songInfo.duration_raw,
+            durationSeconds: songInfo.durationInSec
         }
         
         serverQueue.songs.push(song);
@@ -168,7 +165,12 @@ async function executePlayCommand(message, voiceChannel) {
 async function searchYoutubeAsync(songName) {
     const videoResult = await playdl.search(songName);
     const songInfo = videoResult[0];
-    console.log('Song Info: ' + songInfo);
+    return songInfo;
+}
+
+async function searchYoutubeByUrlAsync(songUrl) {
+    const videoResult = await playdl.video_basic_info(songUrl);
+    const songInfo = videoResult[0];
     return songInfo;
 }
 
@@ -243,11 +245,16 @@ function executeQueueueueCommand(message) {
         if (!serverQueue) return message.reply('Not playing any songs or some shit.');
     
         var qMessage = '*Songs in queueueueueueue:*\n';
+        var totalDuration = 0;
         var i = 1;
         serverQueue.songs.forEach(song => {
-            qMessage+= i + ' - ' + song.title + ' - ' + song.duration + '\n';
+            qMessage+= `${i} - ${song.title} - ${song.duration}`;
+            totalDuration+=song.durationSeconds;
             i++;
         });
+        var date = new Date();
+        date.setSeconds(totalDuration);
+        qMessage+=`\nTotal queueueueueueue duration:${date.toISOString.substr(11,8)}`
         message.channel.send(qMessage);
     } catch (err) {
         return message.reply(`Shit went sideways\n${err}`);
