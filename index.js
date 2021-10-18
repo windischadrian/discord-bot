@@ -149,6 +149,7 @@ async function executePlay(audioName, message, voiceChannel) {
     try {
         var songInfo;
         if (!audioName.includes('www.youtube.com/watch?v=')) {
+            message.suppressEmbeds(true);
             songInfo = await searchYoutubeAsync(audioName);
         } else {
             audioName=audioName.trim();
