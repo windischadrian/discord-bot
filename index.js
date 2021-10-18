@@ -28,7 +28,7 @@ client.on('message', message => {
 })
 
 function hei(message, messageText) {
-    if (messageText.match(/(ei|3)$/)) {
+    if (messageText.match(/(ei|3|ei\?|ei \?|3\?|3 \?)$/)) {
         message.reply('De pula sa ma iei hei hei');
     } else if (messageText.endsWith('5') || messageText.endsWith('cinci')) {
         message.reply('In cur ma lingi');
