@@ -339,13 +339,13 @@ client.on('voiceStateUpdate', async (oldState, newState) => {
     console.log('Stuff happened. ')
     console.log(oldState)
     console.log(newState)
-    if(newState.channel.id === "698958944122699878")
+    if(newState.channelId === "698958944122699878")
     { 
         await newState.member.createDM();
         await newState.member.send(`Ia te uita, e ora ${date.toLocaleTimeString()}, ora perfecta sa sugi pula.`)
     }
 
-    if(oldState.channel.id === "698958944122699878")
+    if(oldState.channelId === "698958944122699878")
     { 
         await oldState.member.createDM();
         await oldState.member.send(`Ai plecat sa sugi pula, este?`);
