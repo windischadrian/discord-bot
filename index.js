@@ -169,11 +169,8 @@ async function searchYoutubeAsync(songName) {
 }
 
 async function searchYoutubeByUrlAsync(songUrl) {
-    console.log(songUrl);
-    const videoResult = await playdl.video_basic_info(songUrl);
-    console.log(videoResult);
-    const songInfo = videoResult[0];
-    return songInfo;
+    const songInfo = await playdl.video_basic_info(songUrl);
+    return songInfo.video_details;
 }
 
 async function play(message) {
