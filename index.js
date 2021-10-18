@@ -84,7 +84,7 @@ client.on("message", async message => {
 function voiceChannelJoin(message, voiceChannel) {
     if (!voiceChannel) return message.reply("You need to be in a voice channel.");
         
-    if (client.voice.connections) return message.reply("Already connected to a voice channel.");
+    if (queue.get(message.guild.id)) return message.reply("Already connected to a voice channel.");
 
     const connection = joinVoiceChannel({
         channelId: voiceChannel.id,
