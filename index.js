@@ -242,7 +242,8 @@ function executeStopCommand(message) {
     if (!serverQueue) return message.reply("No songs currently playing.");
 
     message.reply("Stopped playing songs.");
-    serverQueue.connection.dispatcher.end();
+    serverQueue.connection.disconnect();
+    serverQueue.connection.destroy();
     queue.delete(message.guild.id);
 }
 
