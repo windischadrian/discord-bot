@@ -62,8 +62,7 @@ client.on("message", async message => {
 
     if(messageText.startsWith(`${prefix}leave`)) voiceChannelLeave(message);
 
-    if(messageText.startsWith(`${prefix}play`)) executePlayCommand(message, voiceChannel);
-    if(messageText.startsWith(`${prefix}p`)) executePCommand(message, voiceChannel);
+    if(messageText.startsWith(`${prefix}p`)) executePlayCommand(message, voiceChannel);
 
     if(messageText.startsWith(`${prefix}skip`)) executeSkipCommand(message);
 
@@ -122,13 +121,12 @@ function voiceChannelLeave(message) {
     queue.delete(message.guild.id);
 }
 
-async function executePCommand(message, voiceChannel) {
-    audioName = message.content.substr(`${prefix}p`.length);
-    executePlay(audioName, message, voiceChannel);
-}
-
 async function executePlayCommand(message, voiceChannel) {
-    audioName = message.content.substr(`${prefix}play`.length);
+    if(messageText.startsWith(`${prefix}play`)) {
+        audioName = message.content.substr(`${prefix}play`.length);
+    } else {
+        audioName = message.content.substr(`${prefix}p `.length);
+    }
     executePlay(audioName, message, voiceChannel);
 }
 
@@ -254,17 +252,17 @@ function executeQueueueueCommand(message) {
 
         if (!serverQueue) return message.reply('Not playing any songs or some shit.');
     
-        var qMessage = '*Songs in queueueueueueue:*\n';
+        var qMessage = '**Songs in queueueueueueue:**\n';
         var totalDuration = 0;
         var i = 1;
         serverQueue.songs.forEach(song => {
-            qMessage+= `${i} - ${song.title} - ${song.duration}`;
+            qMessage+= `**${i} - ${song.title} - ${song.duration}**`;
             totalDuration+=song.durationSeconds;
             i++;
         });
         var date = new Date(null);
         date.setSeconds(totalDuration);
-        qMessage+=`\nTotal queueueueueueue duration:${date.toISOString().substr(11,8)}`
+        qMessage+=`\n**Total queueueueueueue duration: ${date.toISOString().substr(11,8)}**`
         message.channel.send(qMessage);
     } catch (err) {
         return message.reply(`Shit went sideways\n${err}`);
