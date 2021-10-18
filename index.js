@@ -122,7 +122,7 @@ function voiceChannelLeave(message) {
 }
 
 async function executePlayCommand(message, voiceChannel) {
-    if(messageText.startsWith(`${prefix}play`)) {
+    if(message.content.startsWith(`${prefix}play`)) {
         audioName = message.content.substr(`${prefix}play`.length);
     } else {
         audioName = message.content.substr(`${prefix}p `.length);
