@@ -201,13 +201,11 @@ async function play(message) {
     const song = serverQueue.songs[0];
 
     if (!song) {
-        setTimeout(function() {
-            connection = serverQueue.connection;
-            connection.disconnect();
-            connection.destroy();
-            queue.delete(guildId);
-            return;
-        }, 60000)
+        connection = serverQueue.connection;
+        connection.disconnect();
+        connection.destroy();
+        queue.delete(guildId);
+        return;
     }
 
     try {
