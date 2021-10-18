@@ -148,13 +148,22 @@ async function executePlay(audioName, message, voiceChannel) {
 
     try {
         var songInfo;
-        if (!audioName.includes('www.youtube.com/watch?v=')) {
-            songInfo = await searchYoutubeAsync(audioName);
-        } else {
-            message.suppressEmbeds(true);
-            audioName=audioName.trim();
-            songInfo = await searchYoutubeByUrlAsync(audioName);
+        const audioType = playdl.yt_validate(audioName);
+
+        switch(audioType) {
+            case 'video': {
+                message.suppressEmbeds(true);
+                audioName=audioName.trim();
+                songInfo = await searchYoutubeByUrlAsync(audioName);
+            } break;
+            case 'search': {
+                songInfo = await searchYoutubeAsync(audioName);
+            } break;
+            case 'playlist': {
+                return message.reply('Playlist integration in progress bro chill tf down.');
+            }
         }
+
         const song = {
             title: songInfo.title,
             url: songInfo.url,
