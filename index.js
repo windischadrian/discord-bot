@@ -70,8 +70,6 @@ client.on("message", async message => {
     if(messageText.startsWith(`${prefix}stop`)) executeStopCommand(message);
 
     if(messageText.startsWith(`${prefix}q`)) executeQueueueueCommand(message);
-
-    if(messageText.startsWith(`${prefix}set`)) executeSetCommand(message);
     
     if(messageText.startsWith(`${prefix}delete `) || messageText.startsWith(`${prefix}remove `)) executeDeleteCommand(message);
 
@@ -299,14 +297,6 @@ function executeQueueueueCommand(message) {
     
 }
 
-function executeSetCommand(message) {
-    try {
-
-    } catch (err) {
-        return message.reply(`Shit went sideways\n${err}`);
-    }
-}
-
 function hei(message, messageText) {
     if (messageText.includes('miau')) {
         message.reply('Imi bag pula in mieunatu tau coaie');
@@ -344,20 +334,18 @@ const cafelutsaCronJob = (client) => new CronJob('00 00 09 * * *', () => {
 
 }, null, true, 'Europe/Bucharest');
 
-bot.on('voiceStateUpdate', (oldMember, newMember) => async function() {
-    let newUserChannel = newMember.voice.channel;
-    let oldUserChannel = oldMember.voice.channel;
+client.on('voiceStateUpdate', (oldState, newState) => async function() {
     const date = new Date();
-    if(newUserChannel === "698958944122699878")
+    if(newState.channel.id === "698958944122699878")
     { 
-        await newMember.createDM();
-        await newMember.send(`Ia te uita, e ora ${date.toLocaleTimeString()}, ora perfecta sa sugi pula.`)
+        await newState.member.createDM();
+        await newState.member.send(`Ia te uita, e ora ${date.toLocaleTimeString()}, ora perfecta sa sugi pula.`)
     }
 
-    if(oldUserChannel === "698958944122699878")
+    if(oldState.channel.id === "698958944122699878")
     { 
-        await oldMember.createDM();
-        await oldMember.send(`Ai plecat sa sugi pula, este?`);
+        await oldState.member.createDM();
+        await oldState.member.send(`Ai plecat sa sugi pula, este?`);
     }
 
  });
