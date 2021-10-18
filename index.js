@@ -188,7 +188,12 @@ async function play(message) {
     }
 
     try {
-        const stream = await playdl.stream(song.url);
+        const stream = await playdl.stream(song.url, {
+            proxy: [{
+                host: '89.36.160.205',
+                port: 4153
+            }]
+        });
         let resource = createAudioResource(stream.stream, {
             inputType: stream.type
         })
