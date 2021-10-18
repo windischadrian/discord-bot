@@ -270,9 +270,9 @@ function executeDeleteCommand(message) {
 
     if (!serverQueue) return message.reply("No songs currently playing.");
     
-    if (!serverQueue.songs[deletePosition]) return message.reply("No song on that position.");
+    if (!serverQueue.songs[deletePosition+1]) return message.reply("No song on that position.");
 
-    const songTitle = serverQueue.songs[deletePosition].title;
+    const songTitle = serverQueue.songs[deletePosition+1].title;
     serverQueue.songs.splice(deletePosition, 1);
     message.reply(`Removed from queue: ${songTitle}`);
 }
