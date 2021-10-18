@@ -11,11 +11,18 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@discordjs/voice": "^0.6.0",
     "cron": "^1.8.2",
     "datetime": "^0.0.3",
     "discord.js": "^13.2.0",
     "dotenv": "^10.0.0",
-    "nodemon": "^2.0.13"
+    "ffmpeg": "^0.0.4",
+    "ffmpeg-static": "^4.4.0",
+    "fs": "^0.0.1-security",
+    "libsodium-wrappers": "^0.7.9",
+    "nodemon": "^2.0.13",
+    "play-dl": "^1.1.7",
+    "youtube-search-without-api-key": "^1.0.6"
   },
   "engines": {
     "node": "16.11.1"
