@@ -336,6 +336,9 @@ const cafelutsaCronJob = (client) => new CronJob('00 00 09 * * *', () => {
 
 client.on('voiceStateUpdate', (oldState, newState) => async function() {
     const date = new Date();
+    console.log('Stuff happened. ')
+    console.log(oldState)
+    console.log(newState)
     if(newState.channel.id === "698958944122699878")
     { 
         await newState.member.createDM();
