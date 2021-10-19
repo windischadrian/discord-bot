@@ -44,6 +44,7 @@ exports.run = async (client, message, args) => {
         case 'so_playlist' || 'sp_track' || 'yt_playlist': {
             try {
                 functionResult =  await searchYoutubeByPlaylist(audioname);
+                console.log('function result: ' + functionResult);
                 multipleSongInfo = functionResult.multipleSongInfo;
                 title = functionResult.title;
                 pushSongsFromPlaylist(multipleSongInfo, serverQueue);
@@ -73,6 +74,7 @@ function pushSong(songInfo, serverQueue) {
 
 function pushSongsFromPlaylist(multipleSongInfo, serverQueue) {
     if (multipleSongInfo.length > 50) multipleSongInfo.splice(0, multipleSongInfo.length - 50);
+    console.log('multiple song info: ' + multipleSongInfo);
     for (songInfo in multipleSongInfo) {
         const song = {
             title: songInfo.title,

@@ -4,6 +4,6 @@ git add .
 
 git commit -m "'$1'"
 
-git push
+git push origin dev
 
-git push heroku main
+git push heroku dev
