@@ -18,28 +18,6 @@ isready = false;
 
 const queue = new Map();
 
-/*
-const queueConstruct = {
-    textChannel: message.channel,
-    voiceChannel: voiceChannel,
-    connection: null,
-    musicStream: createAudioPlayer(),
-    songs: [],
-    search: [],
-    volume: 5,
-    playing: true,
-    leaveTimer: null /* 20 seconds in question 
-  };
-  */
-  //queue.set('1234567812345678', queueContruct);
-  
-  // 2. get queueContruct from queue
-  //const serverQueue = queue.get('1234567812345678');
-  //if(!serverQueue) { /* not exist */ }
-  
-  // 3. delete from queue
-  //queue.delete('1234567812345678');
-
 client.login(process.env.BOT_TOKEN);
 
 client.on("ready", () => {
@@ -336,16 +314,17 @@ const cafelutsaCronJob = (client) => new CronJob('00 00 09 * * *', () => {
 
 client.on('voiceStateUpdate', async (oldState, newState) => {
     const date = new Date();
+    const allowedUsers = ['356698378652090380', '95590636408803328', '406955988546224128', '237939756959268865', '215499279756820480']
     console.log('Stuff happened. ')
     console.log(oldState)
     console.log(newState)
-    if(newState.channelId === "698958944122699878")
+    if(newState.channelId === "698958944122699878" && allowedUsers.includes(newState.member.id))
     { 
         await newState.member.createDM();
         await newState.member.send(`Ia te uita, e ora ${date.toLocaleTimeString()}, ora perfecta sa sugi pula.`)
     }
 
-    if(oldState.channelId === "698958944122699878")
+    if(oldState.channelId === "698958944122699878" && allowedUsers.includes(newState.member.id))
     { 
         await oldState.member.createDM();
         await oldState.member.send(`Ai plecat sa sugi pula, este?`);
