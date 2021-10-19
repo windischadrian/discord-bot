@@ -28,7 +28,6 @@ exports.run = async (client, message, args) => {
     switch(validationResult) {
 
         case 'yt_video' : {
-            console.log('track')
             message.suppressEmbeds(true);
             audioName=audioName.trim();
             songInfo = await searchYoutubeByUrlAsync(audioName);
@@ -37,23 +36,18 @@ exports.run = async (client, message, args) => {
             pushSong(songInfo, serverQueue);
         } break;
         case 'search': {
-            console.log('search')
             songInfo = await searchYoutubeAsync(audioName);
             title = songInfo.title;
             url = songInfo.url;
             pushSong(songInfo, serverQueue);
         } break;
         case 'yt_playlist': {
-            console.log('playlist')
             try {
-                console.log('playlist try')
                 functionResult =  await searchYoutubeByPlaylist(audioName);
-                console.log('function result: ' + functionResult);
                 multipleSongInfo = functionResult.multipleSongInfo;
                 title = functionResult.title;
                 pushSongsFromPlaylist(multipleSongInfo, serverQueue);
             } catch (err) {
-                console.log('playlist err')
                 console.log(err)
                 return message.reply('Playlist has unavailable tracks. Cannot play');
             }
@@ -79,16 +73,19 @@ function pushSong(songInfo, serverQueue) {
 }
 
 function pushSongsFromPlaylist(multipleSongInfo, serverQueue) {
-    console.log('multiple song info: ' + multipleSongInfo);
-    if (multipleSongInfo.length > 50) multipleSongInfo.splice(0, multipleSongInfo.length - 50);
-    for (songInfo in multipleSongInfo) {
-        const song = {
+    if (multipleSongInfo.length > 20) {
+        slicedMultipleInfo = multipleSongInfo.slice(0, 20);
+    }
+
+    for (i in slicedMultipleInfo) {
+        songInfo = slicedMultipleInfo[i];
+        song = {
             title: songInfo.title,
             url: songInfo.url,
             duration: songInfo.durationRaw,
             durationSeconds: songInfo.durationInSec
         }
-    
+
         serverQueue.songs.push(song);
     }
 }
