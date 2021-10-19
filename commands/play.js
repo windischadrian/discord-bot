@@ -22,21 +22,30 @@ exports.run = async (client, message, args) => {
 
     var songInfo;
     const validationResult = await playdl.validate(audioName);
+    title = '';
+    url = '';
 
     switch(validationResult) {
+
         case 'so_track' || 'sp_track' || 'yt_video': {
             message.suppressEmbeds(true);
             audioName=audioName.trim();
             songInfo = await searchYoutubeByUrlAsync(audioName);
+            title = songInfo.title;
+            url = songInfo.url;
             pushSong(songInfo, serverQueue);
         } break;
         case 'search': {
             songInfo = await searchYoutubeAsync(audioName);
+            title = songInfo.title;
+            url = songInfo.url;
             pushSong(songInfo, serverQueue);
         } break;
         case 'so_playlist' || 'sp_track' || 'yt_playlist': {
             try {
-                multipleSongInfo = await searchYoutubeByPlaylist(audioname);
+                functionResult =  await searchYoutubeByPlaylist(audioname);
+                multipleSongInfo = functionResult.multipleSongInfo;
+                title = functionResult.title;
                 pushSongsFromPlaylist(multipleSongInfo, serverQueue);
             } catch (err) {
                 return ('Playlist has unavailable tracks. Cannot play');
@@ -45,8 +54,7 @@ exports.run = async (client, message, args) => {
     }
 
     if (!serverQueue.playing) this.playSong(client, message);
-
-    messageChannel.send(`Added **${song.title}** to the queue.\n${song.url}`);
+    messageChannel.send(`Added **${title}** to the queue.\n${url}`);
 
     
 }
@@ -94,7 +102,9 @@ async function searchYoutubeByUrlAsync(songUrl) {
 async function searchYoutubeByPlaylist(playlistUrl) {
     try {
         response = await playdl.playlist_info(playlistUrl);
-        songsYoutubeVideo = response.videos;
+        title = response.title;
+        multipleSongInfo = response.videos;
+        return { multipleSongInfo, title};
     } catch (err) {
         throw err;
     }
