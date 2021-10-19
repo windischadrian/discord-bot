@@ -27,7 +27,8 @@ exports.run = async (client, message, args) => {
 
     switch(validationResult) {
 
-        case 'so_track' || 'sp_track' || 'yt_video': {
+        case 'yt_video' : {
+            console.log('track')
             message.suppressEmbeds(true);
             audioName=audioName.trim();
             songInfo = await searchYoutubeByUrlAsync(audioName);
@@ -36,23 +37,25 @@ exports.run = async (client, message, args) => {
             pushSong(songInfo, serverQueue);
         } break;
         case 'search': {
+            console.log('search')
             songInfo = await searchYoutubeAsync(audioName);
             title = songInfo.title;
             url = songInfo.url;
             pushSong(songInfo, serverQueue);
         } break;
-        case 'so_playlist' || 'sp_track' || 'yt_playlist': {
+        case 'yt_playlist': {
             console.log('playlist')
             try {
                 console.log('playlist try')
-                functionResult =  await searchYoutubeByPlaylist(audioname);
+                functionResult =  await searchYoutubeByPlaylist(audioName);
                 console.log('function result: ' + functionResult);
                 multipleSongInfo = functionResult.multipleSongInfo;
                 title = functionResult.title;
                 pushSongsFromPlaylist(multipleSongInfo, serverQueue);
             } catch (err) {
                 console.log('playlist err')
-                return ('Playlist has unavailable tracks. Cannot play');
+                console.log(err)
+                return message.reply('Playlist has unavailable tracks. Cannot play');
             }
         }
     }
@@ -76,9 +79,8 @@ function pushSong(songInfo, serverQueue) {
 }
 
 function pushSongsFromPlaylist(multipleSongInfo, serverQueue) {
-    console.log('playlist stuff')
-    if (multipleSongInfo.length > 50) multipleSongInfo.splice(0, multipleSongInfo.length - 50);
     console.log('multiple song info: ' + multipleSongInfo);
+    if (multipleSongInfo.length > 50) multipleSongInfo.splice(0, multipleSongInfo.length - 50);
     for (songInfo in multipleSongInfo) {
         const song = {
             title: songInfo.title,
