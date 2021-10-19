@@ -7,7 +7,8 @@ exports.run = (client, message) => {
 
     if(!serverQueue.songs) return;
 
-    serverQueue.songs;
+    songs = serverQueue.songs;
+    serverQueue.songs = shuffle(songs);
 }
 
 function shuffle(serverQueue) {
@@ -26,5 +27,5 @@ function shuffle(serverQueue) {
         array[randomIndex], array[currentIndex]];
     }
   
-    serverQueue.songs = array;
+    return array;
   }
