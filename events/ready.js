@@ -1,12 +1,10 @@
 const { CronJob } = require('cron');
 
-module.exports = (client, message) => {
-    isReady = true;
+module.exports = async (client) => {
     console.log("Bot is ready");
     cafelutsaCronJob(client).start();
     change(client);
 }
-
 
 const altName = ['Sandei', 'Mondei', 'Tvesdei', 'Vednesdei', 'Sărzdei', 'Freidei', 'Seturdei', ];
 const date = new Date();

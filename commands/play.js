@@ -28,23 +28,21 @@ exports.run = async (client, message, args) => {
             message.suppressEmbeds(true);
             audioName=audioName.trim();
             songInfo = await searchYoutubeByUrlAsync(audioName);
+            pushSong(songInfo, serverQueue);
         } break;
         case 'search': {
             songInfo = await searchYoutubeAsync(audioName);
+            pushSong(songInfo, serverQueue);
         } break;
         case 'so_playlist' || 'sp_track' || 'yt_playlist': {
-            return message.reply('Playlist integration in progress bro chill tf down.');
+            try {
+                multipleSongInfo = await searchYoutubeByPlaylist(audioname);
+                pushSongsFromPlaylist(multipleSongInfo, serverQueue);
+            } catch (err) {
+                return ('Playlist has unavailable tracks. Cannot play');
+            }
         }
     }
-
-    const song = {
-        title: songInfo.title,
-        url: songInfo.url,
-        duration: songInfo.durationRaw,
-        durationSeconds: songInfo.durationInSec
-    }
-    
-    serverQueue.songs.push(song);
 
     if (!serverQueue.playing) this.playSong(client, message);
 
@@ -53,9 +51,35 @@ exports.run = async (client, message, args) => {
     
 }
 
+function pushSong(songInfo, serverQueue) {
+    const song = {
+        title: songInfo.title,
+        url: songInfo.url,
+        duration: songInfo.durationRaw,
+        durationSeconds: songInfo.durationInSec
+    }
+
+    serverQueue.songs.push(song);
+
+}
+
+function pushSongsFromPlaylist(multipleSongInfo, serverQueue) {
+    if (multipleSongInfo.length > 50) multipleSongInfo.splice(0, multipleSongInfo.length - 50);
+    for (songInfo in multipleSongInfo) {
+        const song = {
+            title: songInfo.title,
+            url: songInfo.url,
+            duration: songInfo.durationRaw,
+            durationSeconds: songInfo.durationInSec
+        }
+    
+        serverQueue.songs.push(song);
+    }
+}
+
 // Search Youtube by search params    
 async function searchYoutubeAsync(songName) {
-    const videoResult = await playdl.search(songName);
+    const videoResult = await playdl.search(songName, {limit: 1});
     const songInfo = videoResult[0];
     return songInfo;
 }
@@ -64,6 +88,16 @@ async function searchYoutubeAsync(songName) {
 async function searchYoutubeByUrlAsync(songUrl) {
     const songInfo = await playdl.video_basic_info(songUrl);
     return songInfo.video_details;
+}
+
+// Search Youtube by playlist url
+async function searchYoutubeByPlaylist(playlistUrl) {
+    try {
+        response = await playdl.playlist_info(playlistUrl);
+        songsYoutubeVideo = response.videos;
+    } catch (err) {
+        throw err;
+    }
 }
 
 // play song
