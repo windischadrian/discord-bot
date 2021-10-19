@@ -16,40 +16,36 @@ exports.run = async (client, message) => {
         serverQueue = queue.get(message.guild.id)
     }
 
-    try {
-        var songInfo;
-        const audioType = playdl.yt_validate(audioName);
+    var songInfo;
+    const audioType = playdl.yt_validate(audioName);
 
-        switch(audioType) {
-            case 'video': {
-                message.suppressEmbeds(true);
-                audioName=audioName.trim();
-                songInfo = await searchYoutubeByUrlAsync(audioName);
-            } break;
-            case 'search': {
-                songInfo = await searchYoutubeAsync(audioName);
-            } break;
-            case 'playlist': {
-                return message.reply('Playlist integration in progress bro chill tf down.');
-            }
+    switch(audioType) {
+        case 'video': {
+            message.suppressEmbeds(true);
+            audioName=audioName.trim();
+            songInfo = await searchYoutubeByUrlAsync(audioName);
+        } break;
+        case 'search': {
+            songInfo = await searchYoutubeAsync(audioName);
+        } break;
+        case 'playlist': {
+            return message.reply('Playlist integration in progress bro chill tf down.');
         }
-
-        const song = {
-            title: songInfo.title,
-            url: songInfo.url,
-            duration: songInfo.durationRaw,
-            durationSeconds: songInfo.durationInSec
-        }
-        
-        serverQueue.songs.push(song);
-
-        if (!serverQueue.playing) play(message);
-
-        messageChannel.send(`Added **${song.title}** to the queue.\n${song.url}`);
-    } catch (err) {
-        console.log(err);
-        return messageChannel.send(`Shit went sideways\n${err}`);
     }
+
+    const song = {
+        title: songInfo.title,
+        url: songInfo.url,
+        duration: songInfo.durationRaw,
+        durationSeconds: songInfo.durationInSec
+    }
+    
+    serverQueue.songs.push(song);
+
+    if (!serverQueue.playing) play(message);
+
+    messageChannel.send(`Added **${song.title}** to the queue.\n${song.url}`);
+
     
 }
 
@@ -81,30 +77,25 @@ async function play(message) {
         return;
     }
 
-    try {
-        const stream = await playdl.stream(song.url, {
-            quality : 1
-        });
-        let resource = createAudioResource(stream.stream, {
-            inputType: stream.type
-        })
+    const stream = await playdl.stream(song.url, {
+        quality : 1
+    });
+    let resource = createAudioResource(stream.stream, {
+        inputType: stream.type
+    })
 
-        serverQueue.musicStream.play(resource);
+    serverQueue.musicStream.play(resource);
 
-        serverQueue.connection.subscribe(serverQueue.musicStream);
-        serverQueue.playing = true;
+    serverQueue.connection.subscribe(serverQueue.musicStream);
+    serverQueue.playing = true;
 
-        serverQueue.textChannel.send(`Playing: **${song.title}**`);
+    serverQueue.textChannel.send(`Playing: **${song.title}**`);
 
-        serverQueue.musicStream.on(AudioPlayerStatus.Idle, () => {
-            serverQueue.playing = false;
-            serverQueue.songs.shift();
-            play(message)
-        });
+    serverQueue.musicStream.on(AudioPlayerStatus.Idle, () => {
+        serverQueue.playing = false;
+        serverQueue.songs.shift();
+        play(message)
+    });
 
-    } catch (err) {
-        console.log(err);
-        return messageChannel.send(`Shit went sideways\n${err}`);
-    }
     
 }
