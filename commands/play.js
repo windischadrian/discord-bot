@@ -42,13 +42,16 @@ exports.run = async (client, message, args) => {
             pushSong(songInfo, serverQueue);
         } break;
         case 'so_playlist' || 'sp_track' || 'yt_playlist': {
+            console.log('playlist')
             try {
+                console.log('playlist try')
                 functionResult =  await searchYoutubeByPlaylist(audioname);
                 console.log('function result: ' + functionResult);
                 multipleSongInfo = functionResult.multipleSongInfo;
                 title = functionResult.title;
                 pushSongsFromPlaylist(multipleSongInfo, serverQueue);
             } catch (err) {
+                console.log('playlist err')
                 return ('Playlist has unavailable tracks. Cannot play');
             }
         }
@@ -73,6 +76,7 @@ function pushSong(songInfo, serverQueue) {
 }
 
 function pushSongsFromPlaylist(multipleSongInfo, serverQueue) {
+    console.log('playlist stuff')
     if (multipleSongInfo.length > 50) multipleSongInfo.splice(0, multipleSongInfo.length - 50);
     console.log('multiple song info: ' + multipleSongInfo);
     for (songInfo in multipleSongInfo) {
@@ -102,12 +106,14 @@ async function searchYoutubeByUrlAsync(songUrl) {
 
 // Search Youtube by playlist url
 async function searchYoutubeByPlaylist(playlistUrl) {
+    console.log('playlist first')
     try {
         response = await playdl.playlist_info(playlistUrl);
         title = response.title;
         multipleSongInfo = response.videos;
         return { multipleSongInfo, title};
     } catch (err) {
+        console.log('playlist first err')
         throw err;
     }
 }
