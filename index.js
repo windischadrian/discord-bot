@@ -26,6 +26,7 @@ for (const file of events) {
     }   
 }
 
+
 const commands = readdirSync("./commands").filter(file => file.endsWith(".js"));
 for (const file of commands) {
   const commandName = file.split(".")[0];
