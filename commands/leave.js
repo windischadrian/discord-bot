@@ -8,5 +8,5 @@ exports.run = (client, message) => {
     connection.destroy();
 
     queue.delete(message.guild.id);
-    message.react('\:white_check_mark\:')
+    message.react('✅')
 }

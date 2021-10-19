@@ -30,6 +30,6 @@ exports.run = (client, message) => {
     }
 
     queue.set(guildId, serverQueue);
-    message.react('\:white_check_mark\:')
+    message.react('✅')
 
 }
