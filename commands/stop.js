@@ -1,6 +1,7 @@
 exports.run = (client, message) => {
-
-    const serverQueue = queue.get(message.guild.id);
+    const queue = client.queue;
+    const guildId = message.guild.id;
+    const serverQueue = queue.get(guildId);
 
     if (!message.member.voice.channel) return message.reply("You need to be in a voice channel.");
 
@@ -9,6 +10,6 @@ exports.run = (client, message) => {
     message.reply("Stopped playing songs.");
     serverQueue.connection.disconnect();
     serverQueue.connection.destroy();
-    queue.delete(message.guild.id);
+    queue.delete(guildId);
     
 }

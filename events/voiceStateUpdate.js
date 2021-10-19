@@ -1,4 +1,4 @@
-module.exports = async (oldState, newState) => {
+module.exports = async (client, oldState, newState) => {
     const date = new Date();
     const allowedUsers = ['356698378652090380', '95590636408803328', '406955988546224128', '237939756959268865', '215499279756820480']
     if(newState.channelId === "698958944122699878" && allowedUsers.includes(newState.member.id))

@@ -1,4 +1,4 @@
-const playCommand = require('./play.js');
+const { AudioPlayerStatus } = require('@discordjs/voice');
 
 exports.run = (client, message) => {
     const queue = client.queue;
@@ -9,8 +9,6 @@ exports.run = (client, message) => {
 
     if (!serverQueue) return message.reply("**No songs currently playing.**");
 
-    serverQueue.songs.shift();
-    playCommand.playSong(client, message);
-
-    message.reply("**Skipped current song.**");
+    serverQueue.musicStream.unpause();
+    message.reply("**Song resumed.**");
 }

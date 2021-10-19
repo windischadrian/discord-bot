@@ -1,26 +1,30 @@
 const playdl = require('play-dl');
+const joinCommand = require('./join.js');
 
-const { getVoiceConnection, joinVoiceChannel, createAudioResource, createAudioPlayer, AudioPlayerStatus } = require('@discordjs/voice');
+const { createAudioResource, AudioPlayerStatus } = require('@discordjs/voice');
+exports.run = async (client, message, args) => {
 
-exports.run = async (client, message) => {
-
-    let voiceChannel = message.member.voice.channel;
+    const guildId = message.guild.id;
+    const queue = client.queue;
+    const voiceChannel = message.member.voice.channel;
     const messageChannel = message.channel;
+    const audioName = args.join(' ');
+    var serverQueue = queue.get(guildId);
+
     if (!voiceChannel) return message.reply("You need to be in a voice channel.");
 
     if (!audioName) return message.reply("Forgot song title?");
 
-    var serverQueue = queue.get(message.guild.id);
     if (!serverQueue) {
-        voiceChannelJoin(message, voiceChannel);
-        serverQueue = queue.get(message.guild.id)
+        joinCommand.run(client, message);
+        serverQueue = queue.get(guildId)
     }
 
     var songInfo;
-    const audioType = playdl.yt_validate(audioName);
+    const validationResult = await playdl.validate(audioName);
 
-    switch(audioType) {
-        case 'video': {
+    switch(validationResult) {
+        case 'so_track' || 'sp_track' || 'yt_video': {
             message.suppressEmbeds(true);
             audioName=audioName.trim();
             songInfo = await searchYoutubeByUrlAsync(audioName);
@@ -28,7 +32,7 @@ exports.run = async (client, message) => {
         case 'search': {
             songInfo = await searchYoutubeAsync(audioName);
         } break;
-        case 'playlist': {
+        case 'so_playlist' || 'sp_track' || 'yt_playlist': {
             return message.reply('Playlist integration in progress bro chill tf down.');
         }
     }
@@ -42,7 +46,7 @@ exports.run = async (client, message) => {
     
     serverQueue.songs.push(song);
 
-    if (!serverQueue.playing) play(message);
+    if (!serverQueue.playing) this.playSong(client, message);
 
     messageChannel.send(`Added **${song.title}** to the queue.\n${song.url}`);
 
@@ -63,10 +67,13 @@ async function searchYoutubeByUrlAsync(songUrl) {
 }
 
 // play song
-async function play(message) {
-    const messageChannel = message.channel;
+exports.playSong = async (client, message) => {
+    const queue = client.queue;
     const guildId = message.guild.id;
     const serverQueue = queue.get(guildId);
+
+    if (!serverQueue) return;
+
     const song = serverQueue.songs[0];
 
     if (!song) {
@@ -77,9 +84,7 @@ async function play(message) {
         return;
     }
 
-    const stream = await playdl.stream(song.url, {
-        quality : 1
-    });
+    const stream = await playdl.stream(song.url);
     let resource = createAudioResource(stream.stream, {
         inputType: stream.type
     })
@@ -94,7 +99,7 @@ async function play(message) {
     serverQueue.musicStream.on(AudioPlayerStatus.Idle, () => {
         serverQueue.playing = false;
         serverQueue.songs.shift();
-        play(message)
+        this.playSong(client, message)
     });
 
     

@@ -8,19 +8,16 @@ module.exports = async (client, message) => {
   
     // Grab the command data from the client.commands Enmap
     const cmd = client.commands.get(command);
-  
+
     // If that command doesn't exist, silently exit and do nothing
     if (!cmd) return;
-
-    console.log('Args: ' + args);
-    console.log('Command: ' + command);
   
     // Run the command
     try {
         await cmd.run(client, message, args);
     } catch (err) {
         console.log(err);
-        return messageChannel.send(`Shit went sideways\n${err}`);
+        return message.channel.send(`Shit went sideways\n${err}`);
     }  
 
     hei(message, message.content);
