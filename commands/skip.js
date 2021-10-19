@@ -9,7 +9,6 @@ exports.run = (client, message) => {
 
     if (!serverQueue) return message.reply("**No songs currently playing.**");
 
-    serverQueue.songs.shift();
     playCommand.playSong(client, message);
 
     message.react('✅')
