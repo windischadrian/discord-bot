@@ -12,5 +12,5 @@ exports.run = (client, message) => {
     serverQueue.songs.shift();
     playCommand.playSong(client, message);
 
-    message.react(':white_check_mark:')
+    message.react('\:white_check_mark\:')
 }

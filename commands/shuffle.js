@@ -9,7 +9,7 @@ exports.run = (client, message) => {
 
     songs = serverQueue.songs;
     serverQueue.songs = shuffle(songs);
-    message.react(':white_check_mark:')
+    message.react('\:white_check_mark\:')
 }
 
 function shuffle(array) {
