@@ -1,7 +1,9 @@
-exports.run = (client, message) => {
-    
+const config = require('../config.json');
+
+exports.run = (client, message, args) => {
+    const queue = client.queue;
     const serverQueue = queue.get(message.guild.id);
-    const deletePosition = message.content.substr(`${prefix}delete `.length);
+    const deletePosition = args[0];
     
     if (!message.member.voice.channel) return message.reply("You need to be in a voice channel.");
     
