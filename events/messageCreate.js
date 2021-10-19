@@ -16,7 +16,12 @@ module.exports = (client, message) => {
     console.log('Command: ' + command);
   
     // Run the command
-    cmd.run(client, message, args);
+    try {
+        cmd.run(client, message, args);
+    } catch (err) {
+        console.log(err);
+        return messageChannel.send(`Shit went sideways\n${err}`);
+    }  
 
     hei(message, message.content);
 };

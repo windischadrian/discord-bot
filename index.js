@@ -18,7 +18,12 @@ const events = readdirSync("./events").filter(file => file.endsWith(".js"));
 for (const file of events) {
   const eventName = file.split(".")[0];
   const event = require(`./events/${file}`);
-  client.on(eventName, event.bind(null, client));
+  try {
+    client.on(eventName, event.bind(null, client));
+    } catch (err) {
+        console.log(err);
+        return messageChannel.send(`Shit went sideways\n${err}`);
+    }   
 }
 
 const commands = readdirSync("./commands").filter(file => file.endsWith(".js"));
