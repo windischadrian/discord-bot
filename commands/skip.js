@@ -12,5 +12,5 @@ exports.run = (client, message) => {
     serverQueue.songs.shift();
     playCommand.playSong(client, message);
 
-    message.reply("**Skipped current song.**");
+    message.react(':white_check_mark:')
 }

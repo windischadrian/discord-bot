@@ -105,14 +105,12 @@ async function searchYoutubeByUrlAsync(songUrl) {
 
 // Search Youtube by playlist url
 async function searchYoutubeByPlaylist(playlistUrl) {
-    console.log('playlist first')
     try {
         response = await playdl.playlist_info(playlistUrl);
         title = response.title;
         multipleSongInfo = response.videos;
         return { multipleSongInfo, title};
     } catch (err) {
-        console.log('playlist first err')
         throw err;
     }
 }

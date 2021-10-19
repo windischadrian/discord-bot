@@ -30,6 +30,6 @@ exports.run = (client, message) => {
     }
 
     queue.set(guildId, serverQueue);
-    message.channel.send(`Joined ${voiceChannel.name} channel. Use **${config.prefix}play** to add songs to the queue.`)
+    message.react(':white_check_mark:')
 
 }
