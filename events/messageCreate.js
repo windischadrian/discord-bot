@@ -1,3 +1,5 @@
+const config = require('../config.json');
+
 module.exports = async (client, message) => {
     // Ignore all bots
     if (message.author.bot) return;
@@ -30,11 +32,11 @@ function hei(message, messageText) {
         message.reply('Baga-ti-as babilonu in cur');
     } else if (messageText.match(/(ei|3|ei\?|ei \?|3\?|3 \?)$/)) {
         message.reply('De pula sa ma iei hei hei');
-    } else if (messageText.endsWith('5') || messageText.endsWith('cinci')) {
+    } else if (messageText.match(/(cinci|5|cinci\?|cinci \?|5\?|5 \?)$/)) {
         message.reply('In cur ma lingi');
     } else if (messageText.match(/(arici|arici\?|arici \?)$/)) {
         message.reply('Du-te-n pula mea de aici');
     } else if (messageText.match(/(sinucid|suicid|ma omor)/)) {
-        message.reply(bahoiSuicid);
+        message.reply(config.bahoiSuicid);
     }
 }
