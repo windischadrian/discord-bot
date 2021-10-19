@@ -1,4 +1,4 @@
-module.exports = (client, message) => {
+module.exports = async (client, message) => {
     // Ignore all bots
     if (message.author.bot) return;
   
@@ -17,7 +17,7 @@ module.exports = (client, message) => {
   
     // Run the command
     try {
-        cmd.run(client, message, args);
+        await cmd.run(client, message, args);
     } catch (err) {
         console.log(err);
         return messageChannel.send(`Shit went sideways\n${err}`);
