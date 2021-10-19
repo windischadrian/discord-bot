@@ -11,8 +11,7 @@ exports.run = (client, message) => {
     serverQueue.songs = shuffle(songs);
 }
 
-function shuffle(serverQueue) {
-    array = serverQueue.songs;
+function shuffle(array) {
     let currentIndex = array.length,  randomIndex;
   
     // While there remain elements to shuffle...
