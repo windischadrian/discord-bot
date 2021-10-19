@@ -1,9 +1,8 @@
-import { yt_validate, search, video_basic_info, stream as _stream } from 'play-dl';
+const playdl = require('play-dl');
 
-import { getVoiceConnection, joinVoiceChannel, createAudioResource, createAudioPlayer, AudioPlayerStatus } from '@discordjs/voice';
-const queue = new Map();
+const { getVoiceConnection, joinVoiceChannel, createAudioResource, createAudioPlayer, AudioPlayerStatus } = require('@discordjs/voice');
 
-execute.run = (client, message) => {
+exports.run = async (client, message) => {
 
     let voiceChannel = message.member.voice.channel;
     const messageChannel = message.channel;
@@ -19,7 +18,7 @@ execute.run = (client, message) => {
 
     try {
         var songInfo;
-        const audioType = yt_validate(audioName);
+        const audioType = playdl.yt_validate(audioName);
 
         switch(audioType) {
             case 'video': {
@@ -56,14 +55,14 @@ execute.run = (client, message) => {
 
 // Search Youtube by search params    
 async function searchYoutubeAsync(songName) {
-    const videoResult = await search(songName);
+    const videoResult = await playdl.search(songName);
     const songInfo = videoResult[0];
     return songInfo;
 }
 
 // Search Youtube by video url
 async function searchYoutubeByUrlAsync(songUrl) {
-    const songInfo = await video_basic_info(songUrl);
+    const songInfo = await playdl.video_basic_info(songUrl);
     return songInfo.video_details;
 }
 
@@ -83,7 +82,7 @@ async function play(message) {
     }
 
     try {
-        const stream = await _stream(song.url, {
+        const stream = await playdl.stream(song.url, {
             quality : 1
         });
         let resource = createAudioResource(stream.stream, {

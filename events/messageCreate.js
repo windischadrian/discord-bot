@@ -1,6 +1,4 @@
-import { CronJob } from 'cron';
-
-export default (client, message) => {
+module.exports = (client, message) => {
     // Ignore all bots
     if (message.author.bot) return;
   
@@ -13,14 +11,17 @@ export default (client, message) => {
   
     // If that command doesn't exist, silently exit and do nothing
     if (!cmd) return;
+
+    console.log('Args: ' + args);
+    console.log('Command: ' + command);
   
     // Run the command
     cmd.run(client, message, args);
 
     hei(message, message.content);
-  };
+};
 
-  function hei(message, messageText) {
+function hei(message, messageText) {
     if (messageText.includes('miau')) {
         message.reply('Imi bag pula in mieunatu tau coaie');
     } else if (messageText.includes('babilon')) {
@@ -35,24 +36,3 @@ export default (client, message) => {
         message.reply(bahoiSuicid);
     }
 }
-
-const altName = ['Sandei', 'Mondei', 'Tvesdei', 'Vednesdei', 'Sărzdei', 'Freidei', 'Seturdei', ];
-const date = new Date();
-
-function change() {
-
-    var welfareVoiceChannel =  client.channels.cache.get('698958944122699878');
-    var day = date.getDay();
-    var newName = 'Welfare ' + altName[day];
-
-    welfareVoiceChannel.setName(newName);
-}
-
-setInterval(change, 1000000);
-
-const cafelutsaCronJob = (client) => new CronJob('00 00 09 * * *', () => {
-
-    var generalTextChannel = client.channels.cache.get('788439966975000576');
-    generalTextChannel.send('Va urez spor la cafelutsa si sa aveti o zi minunata!');
-
-}, null, true, 'Europe/Bucharest');

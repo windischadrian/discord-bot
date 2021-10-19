@@ -1,6 +1,6 @@
-import { joinVoiceChannel } from '@discordjs/voice';
+const { joinVoiceChannel } = require('@discordjs/voice');
 
-export function run(client, message) {
+exports.run = (client, message) => {
     let voiceChannel = message.member.voice.channel;
     if (!voiceChannel) return message.reply("You need to be in a voice channel.");
         
