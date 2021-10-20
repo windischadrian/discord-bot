@@ -8,7 +8,7 @@ module.exports = async (client, interaction) => {
         return MessageComponentInteraction.user.id === ButtonInteraction.user.id;
     }
 
-    const collector = message.channel.createMessageComponentCollector({
+    const collector = interaction.channel.createMessageComponentCollector({
         filter
     })
 
