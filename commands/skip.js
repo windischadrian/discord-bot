@@ -9,7 +9,11 @@ exports.run = (client, message) => {
 
     if (!serverQueue) return message.reply("**No songs currently playing.**");
 
-    playCommand.playSong(client, message);
+    this.skipSong(client, guildId);
 
     message.react('✅')
+}
+
+exports.skipSong = (client, guildId) => {
+    playCommand.playSong(client, guildId);
 }

@@ -55,7 +55,7 @@ exports.run = async (client, message, args) => {
         }
     }
 
-    if (!serverQueue.playing) this.playSong(client, message);
+    if (!serverQueue.playing) this.playSong(client, guildId);
     messageChannel.send(`Added **${title}** to the queue.\n${url}`);
 
     
@@ -117,9 +117,8 @@ async function searchYoutubeByPlaylist(playlistUrl) {
 }
 
 // play song
-exports.playSong = async (client, message) => {
+exports.playSong = async (client, guildId) => {
     const queue = client.queue;
-    const guildId = message.guild.id;
     const serverQueue = queue.get(guildId);
 
     if (!serverQueue) return;
@@ -150,7 +149,7 @@ exports.playSong = async (client, message) => {
     serverQueue.musicStream.on(AudioPlayerStatus.Idle, () => {
         serverQueue.playing = false;
         serverQueue.songs.shift();
-        this.playSong(client, message)
+        this.playSong(client, guildId)
     });
 
     

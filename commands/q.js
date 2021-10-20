@@ -1,4 +1,4 @@
-const { MessageEmbed, MessageActionRow, MessageButton } = require("discord.js");
+const { MessageEmbed, MessageActionRow, MessageButton, ButtonInteraction, MessageComponentInteraction } = require("discord.js");
 const config = require("../config.json");
 
 exports.run = (client, message) => {
@@ -58,7 +58,7 @@ function buttons(client, message) {
         )
         .addComponents(
             new MessageButton()
-                .setCustomId('Play/Pause')
+                .setCustomId('PlayPause')
                 .setEmoji('⏯')
                 .setStyle('SECONDARY')
         )
@@ -74,7 +74,6 @@ function buttons(client, message) {
                 .setEmoji('🔀')
                 .setStyle('SECONDARY')
         )
-    
 
-        return interactionComponents;
+    return interactionComponents;
 }
