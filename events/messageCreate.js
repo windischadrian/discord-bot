@@ -4,6 +4,7 @@ module.exports = async (client, message) => {
     // Ignore all bots
     if (message.author.bot) return;
   
+    if (message.content.indexOf(client.config.prefix) !== 0) return;
     // call hei even if it's not a command
     hei(message, message.content);
 
