@@ -35,6 +35,18 @@ exports.run = (client, message) => {
     const interactionComponents = new MessageActionRow()
         .addComponents(
             new MessageButton()
+                .setCustomId('PreviousPage')
+                .setEmoji('◀️')
+                .setStyle('SECONDARY')
+        )
+        .addComponents(
+            new MessageButton()
+                .setCustomId('NextPage')
+                .setEmoji('▶️')
+                .setStyle('SECONDARY')
+        )
+        .addComponents(
+            new MessageButton()
                 .setCustomId('Play/Pause')
                 .setEmoji('⏯')
                 .setStyle('SECONDARY')
@@ -43,6 +55,12 @@ exports.run = (client, message) => {
             new MessageButton()
                 .setCustomId('Skip')
                 .setEmoji('⏭')
+                .setStyle('SECONDARY')
+        )
+        .addComponents(
+            new MessageButton()
+                .setCustomId('Shuffle')
+                .setEmoji('🔀')
                 .setStyle('SECONDARY')
         )
     
