@@ -9,7 +9,7 @@ exports.run = async (client, message, args) => {
     const queue = client.queue;
     const voiceChannel = message.member.voice.channel;
     const messageChannel = message.channel;
-    const audioName = args.join(' ');
+    var audioName = args.join(' ');
     var serverQueue = queue.get(guildId);
 
     if (!voiceChannel) return message.reply("You need to be in a voice channel.");
