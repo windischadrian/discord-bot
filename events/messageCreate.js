@@ -21,11 +21,13 @@ module.exports = async (client, message) => {
         console.log(err);
         return message.channel.send(`Shit went sideways\n${err}`);
     }  
-
+    console.log('a ajuns aici');
     hei(message, message.content);
 };
 
 function hei(message, messageText) {
+    console.log('a ajuns aici in functie');
+    console.log(messageText);
     if (messageText.includes('miau')) {
         message.reply('Imi bag pula in mieunatu tau coaie');
     } else if (messageText.includes('babilon')) {
