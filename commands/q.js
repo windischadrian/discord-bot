@@ -34,6 +34,6 @@ exports.run = (client, message) => {
     console.log(messageEmbed)
     
     messageEmbed.addField('Total duration: ',  date.toISOString().substr(11,8), false);
-    message.channel.send(messageEmbed);
+    message.channel.send({ embeds: [messageEmbed] });
     
 }
