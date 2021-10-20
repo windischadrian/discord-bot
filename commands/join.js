@@ -24,6 +24,7 @@ exports.run = (client, message) => {
                 noSubscriber: NoSubscriberBehavior.Play
             }
         }),
+        songPlayingTitle: '',
         songs: [],
         volume: 5,
         playing: false,

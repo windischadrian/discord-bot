@@ -141,6 +141,7 @@ exports.playSong = async (client, message) => {
     serverQueue.musicStream.play(resource);
     serverQueue.connection.subscribe(serverQueue.musicStream);
     serverQueue.playing = true;
+    serverQueue.songPlayingTitle = song.title
     serverQueue.songs.shift();
 
     serverQueue.textChannel.send(`Playing: **${song.title}**`);

@@ -15,13 +15,13 @@ exports.run = (client, message) => {
         .setTitle('**Songs in queueueueueueue:**')
 
     serverQueue.songs.forEach(song => {
-        messageEmbed.addField(null, )
         qMessage+= `**${i} - ${song.title} - ${song.duration}**\n`;
         totalDuration+=song.durationSeconds;
         i++;
     });
 
     console.log('songs per page: ' + songsPerpage);
+    console.log('song playing: ' + serverQueue.songPlayingTitle);
     var date = new Date(null);
     date.setSeconds(totalDuration);
     qMessage+=`\n**Total queueueueueueue duration: ${date.toISOString().substr(11,8)}**`
