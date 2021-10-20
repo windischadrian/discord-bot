@@ -1,5 +1,6 @@
 const playdl = require('play-dl');
 const joinCommand = require('./join.js');
+const config = require('../config.json');
 
 const { createAudioResource, AudioPlayerStatus } = require('@discordjs/voice');
 exports.run = async (client, message, args) => {
@@ -73,8 +74,8 @@ function pushSong(songInfo, serverQueue) {
 }
 
 function pushSongsFromPlaylist(multipleSongInfo, serverQueue) {
-    if (multipleSongInfo.length > 20) {
-        slicedMultipleInfo = multipleSongInfo.slice(0, 20);
+    if (multipleSongInfo.length > config.songsPerPage) {
+        slicedMultipleInfo = multipleSongInfo.slice(0, config.songsPerPage);
     }
 
     for (i in slicedMultipleInfo) {
