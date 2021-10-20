@@ -6,6 +6,9 @@ module.exports = async (client, interaction) => {
     if (!interaction.isButton()) return;
 
     const filter = () => {
+        console.log(MessageComponentInteraction.user.id);
+        console.log(ButtonInteraction.user.id);
+
         return MessageComponentInteraction.user.id === ButtonInteraction.user.id;
     }
 
