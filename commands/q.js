@@ -14,19 +14,20 @@ exports.run = (client, message) => {
 
     var messageEmbed = new MessageEmbed()
         .setTitle('**Songs in queueueueueueue:**');
-    var currentlyPlaying = serverQueue.songPlayingTitle;
-    if(!currentlyPlaying) currentlyPlaying = 'No song currently playing';
-    messageEmbed.addField('Currently playing', currentlyPlaying, false);
-    console.log(currentlyPlaying);
 
     serverQueue.songs.forEach(song => {
         qMessage+= `**${i} - ${song.title} - ${song.duration}**\n`;
         totalDuration+=song.durationSeconds;
         i++;
     });
-    console.log(qMessage);
 
+    var currentlyPlaying = serverQueue.songPlayingTitle;
+    if(!currentlyPlaying) currentlyPlaying = 'No song currently playing';
+    if(!qMessage) qMessage = 'No songs in queue';
+
+    messageEmbed.addField('Currently playing', currentlyPlaying, false);
     messageEmbed.addField('Music queueueueueueue', qMessage, false);
+
     var date = new Date(null);
     date.setSeconds(totalDuration);
     // qMessage+=`\n**Total queueueueueueue duration: ${date.toISOString().substr(11,8)}**`
