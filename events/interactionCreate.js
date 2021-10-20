@@ -15,7 +15,8 @@ module.exports = async (client, interaction) => {
     })
 
     collector.on('collect', async i => {
-        console.log('interaction: ' + i);
+        console.log(i);
+        console.log(i.toJSON());
         switch(i.customId) {
             case('Skip'): {
                 skipCommand.skipSong(client, i.guildId);
