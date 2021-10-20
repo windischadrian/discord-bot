@@ -79,5 +79,10 @@ function buttons(client, message) {
 
     interactionComponents.userThatCreatedInteractionId = message.author.id;
 
+    console.log('**************BUTTON**************')
+    console.log(button);
+    console.log('**************interactionComponents**************')
+    console.log(interactionComponents)
+
     return interactionComponents;
 }
