@@ -43,33 +43,35 @@ exports.run = (client, message) => {
 }
 
 function buttons(client, message) {
+    var button = new MessageButton();
+    button.userThatCreatedButton = message.author.id;
     const interactionComponents = new MessageActionRow()
         .addComponents(
-            new MessageButton()
+            button
                 .setCustomId('PreviousPage')
                 .setEmoji('◀️')
                 .setStyle('SECONDARY')
         )
         .addComponents(
-            new MessageButton()
+            button
                 .setCustomId('NextPage')
                 .setEmoji('▶️')
                 .setStyle('SECONDARY')
         )
         .addComponents(
-            new MessageButton()
+            button
                 .setCustomId('PlayPause')
                 .setEmoji('⏯')
                 .setStyle('SECONDARY')
         )
         .addComponents(
-            new MessageButton()
+            button
                 .setCustomId('Skip')
                 .setEmoji('⏭')
                 .setStyle('SECONDARY')
         )
         .addComponents(
-            new MessageButton()
+            button
                 .setCustomId('Shuffle')
                 .setEmoji('🔀')
                 .setStyle('SECONDARY')
