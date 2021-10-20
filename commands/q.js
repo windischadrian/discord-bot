@@ -32,6 +32,17 @@ exports.run = (client, message) => {
     date.setSeconds(totalDuration);
     // qMessage+=`\n**Total queueueueueueue duration: ${date.toISOString().substr(11,8)}**`
 
+    const interactionComponents = buttons(client,message);
+
+    messageEmbed.addField('Total duration: ',  date.toISOString().substr(11,8), false);
+    message.channel.send({
+         embeds: [messageEmbed], 
+         components: [interactionComponents]
+        });
+    
+}
+
+function buttons(client, message) {
     const interactionComponents = new MessageActionRow()
         .addComponents(
             new MessageButton()
@@ -64,10 +75,6 @@ exports.run = (client, message) => {
                 .setStyle('SECONDARY')
         )
     
-    messageEmbed.addField('Total duration: ',  date.toISOString().substr(11,8), false);
-    message.channel.send({
-         embeds: [messageEmbed], 
-         components: [interactionComponents]
-        });
-    
+
+        return interactionComponents;
 }
