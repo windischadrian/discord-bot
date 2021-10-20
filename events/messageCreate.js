@@ -4,6 +4,9 @@ module.exports = async (client, message) => {
     // Ignore all bots
     if (message.author.bot) return;
   
+    // call hei even if it's not a command
+    hei(message, message.content);
+
     // Our standard argument/command name definition.
     const args = message.content.slice(client.config.prefix.length).trim().split(/ +/g);
     const command = args.shift().toLowerCase();
@@ -20,14 +23,10 @@ module.exports = async (client, message) => {
     } catch (err) {
         console.log(err);
         return message.channel.send(`Shit went sideways\n${err}`);
-    }  
-    console.log('a ajuns aici');
-    hei(message, message.content);
+    } 
 };
 
 function hei(message, messageText) {
-    console.log('a ajuns aici in functie');
-    console.log(messageText);
     if (messageText.includes('miau')) {
         message.reply('Imi bag pula in mieunatu tau coaie');
     } else if (messageText.includes('babilon')) {
