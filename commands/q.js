@@ -31,7 +31,7 @@ exports.run = (client, message) => {
     var date = new Date(null);
     date.setSeconds(totalDuration);
     // qMessage+=`\n**Total queueueueueueue duration: ${date.toISOString().substr(11,8)}**`
-    console.log(date);
+    console.log(messageEmbed)
     
     messageEmbed.addField('Total duration: ',  date.toISOString().substr(11,8), false);
     message.channel.send(messageEmbed);
