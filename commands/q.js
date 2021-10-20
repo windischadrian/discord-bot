@@ -1,4 +1,4 @@
-const { MessageEmbed } = require("discord.js");
+const { MessageEmbed, MessageActionRow, MessageButton } = require("discord.js");
 const config = require("../config.json");
 
 exports.run = (client, message) => {
@@ -31,11 +31,25 @@ exports.run = (client, message) => {
     var date = new Date(null);
     date.setSeconds(totalDuration);
     // qMessage+=`\n**Total queueueueueueue duration: ${date.toISOString().substr(11,8)}**`
+
+    const interactionComponents = new MessageActionRow()
+        .addComponents(
+            new MessageButton()
+                .setCustomId('Play/Pause')
+                .setEmoji('⏯')
+                .setStyle('SECONDARY')
+        )
+        .addComponents(
+            new MessageButton()
+                .setCustomId('Skip')
+                .setEmoji('⏭')
+                .setStyle('SECONDARY')
+        )
     
     messageEmbed.addField('Total duration: ',  date.toISOString().substr(11,8), false);
-    message.channel.send({ embeds: [messageEmbed] }).then(embedMessage => {
-        embedMessage.react('⏯');
-        embedMessage.react('⏭')
-    });
+    message.channel.send({
+         embeds: [messageEmbed], 
+         components: [interactionComponents]
+        });
     
 }
