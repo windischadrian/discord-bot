@@ -5,16 +5,14 @@ module.exports = async (client, interaction) => {
     console.log('interaction');
     if (!interaction.isButton()) return;
 
-    const filter = () => {
-        console.log(MessageComponentInteraction.user.id);
-        console.log(ButtonInteraction.user.id);
+    // const filter = i => {
+    //     console.log(i);
+    //     return i.user.id === ButtonInteraction.user.id;
+    // }
 
-        return MessageComponentInteraction.user.id === ButtonInteraction.user.id;
-    }
-
-    const collector = interaction.channel.createMessageComponentCollector({
-        filter
-    })
+    // const collector = interaction.channel.createMessageComponentCollector({
+    //     filter
+    // })
 
     collector.on('collect', async i => {
         console.log('interaction: ' + i);
