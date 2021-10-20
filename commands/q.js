@@ -75,5 +75,7 @@ function buttons(client, message) {
                 .setStyle('SECONDARY')
         )
 
+    interactionComponents.userThatCreatedInteractionId = message.author.id;
+
     return interactionComponents;
 }
