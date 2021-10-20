@@ -148,7 +148,6 @@ exports.playSong = async (client, guildId) => {
 
     serverQueue.musicStream.on(AudioPlayerStatus.Idle, () => {
         serverQueue.playing = false;
-        serverQueue.songs.shift();
         this.playSong(client, guildId)
     });
 
