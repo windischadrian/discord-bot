@@ -57,12 +57,14 @@ exports.run = async (client, message, args) => {
     
     messageChannel.send(`Added **${title}** to the queue.\n${url}`);
 
-    if(!serverQueue.playing) await this.playSong(client, guildId);
-    
-    serverQueue.musicStream.on(AudioPlayerStatus.Idle, () => {
-        serverQueue.playing = false;
-        this.playSong(client, guildId)
-    });
+    if(!serverQueue.playing) {
+        await this.playSong(client, guildId);
+        
+        serverQueue.musicStream.on(AudioPlayerStatus.Idle, () => {
+            serverQueue.playing = false;
+            this.playSong(client, guildId)
+        });
+    }
 
 }
 
