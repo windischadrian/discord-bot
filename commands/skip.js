@@ -1,6 +1,6 @@
 const playCommand = require('./play.js');
 
-exports.run = (client, message) => {
+exports.run = async (client, message) => {
     const queue = client.queue;
     const guildId = message.guild.id;
     const serverQueue = queue.get(guildId);
@@ -9,11 +9,11 @@ exports.run = (client, message) => {
 
     if (!serverQueue) return message.reply("**No songs currently playing.**");
 
-    this.skipSong(client, guildId);
+    await this.skipSong(client, guildId);
 
     message.react('✅')
 }
 
-exports.skipSong = (client, guildId) => {
-    playCommand.playSong(client, guildId);
+exports.skipSong = async (client, guildId) => {
+    await playCommand.playSong(client, guildId);
 }

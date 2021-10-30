@@ -54,11 +54,16 @@ exports.run = async (client, message, args) => {
             }
         }
     }
-
-    if (!serverQueue.playing) this.playSong(client, guildId);
+    
     messageChannel.send(`Added **${title}** to the queue.\n${url}`);
 
+    if(!serverQueue.playing) await this.playSong(client, guildId);
     
+    serverQueue.musicStream.on(AudioPlayerStatus.Idle, () => {
+        serverQueue.playing = false;
+        this.playSong(client, guildId)
+    });
+
 }
 
 function pushSong(songInfo, serverQueue) {
@@ -74,12 +79,9 @@ function pushSong(songInfo, serverQueue) {
 }
 
 function pushSongsFromPlaylist(multipleSongInfo, serverQueue) {
-    if (multipleSongInfo.length > config.songsPerPage) {
-        slicedMultipleInfo = multipleSongInfo.slice(0, config.songsPerPage);
-    }
 
-    for (i in slicedMultipleInfo) {
-        songInfo = slicedMultipleInfo[i];
+    for (i in multipleSongInfo) {
+        songInfo = multipleSongInfo[i];
         song = {
             title: songInfo.title,
             url: songInfo.url,
@@ -140,16 +142,12 @@ exports.playSong = async (client, guildId) => {
 
     serverQueue.musicStream.play(resource);
     serverQueue.connection.subscribe(serverQueue.musicStream);
+
     serverQueue.playing = true;
     serverQueue.songPlayingTitle = song.title
+
     serverQueue.songs.shift();
 
     serverQueue.textChannel.send(`Playing: **${song.title}**`);
-
-    serverQueue.musicStream.on(AudioPlayerStatus.Idle, () => {
-        serverQueue.playing = false;
-        this.playSong(client, guildId)
-    });
-
     
 }

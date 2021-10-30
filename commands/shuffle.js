@@ -7,9 +7,15 @@ exports.run = (client, message) => {
 
     if(!serverQueue.songs) return;
 
-    songs = serverQueue.songs;
-    serverQueue.songs = shuffle(songs);
+    this.shuffleSongs(client, guildId);
+
     message.react('✅')
+}
+
+exports.shuffleSongs = (client, guildId) => {
+  const serverQueue = client.queue.get(guildId);
+  songs = serverQueue.songs;
+  serverQueue.songs = shuffle(songs);
 }
 
 function shuffle(array) {

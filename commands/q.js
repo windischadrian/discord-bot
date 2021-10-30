@@ -2,21 +2,33 @@ const { MessageEmbed, MessageActionRow, MessageButton, ButtonInteraction, Messag
 const config = require("../config.json");
 
 exports.run = (client, message) => {
+
+    const interactionComponents = buttons(client, message.guild.id);
+
+    if (!client.queue.get(message.guild.id)) return message.reply('Not playing any songs or some shit.');
+
+    const messageEmbed = this.createQueueEmbedMessage(client, message.guild.id);
+
+    message.channel.send({
+         embeds: [messageEmbed], 
+         components: [interactionComponents]
+        });
+    
+}
+
+exports.createQueueEmbedMessage = (client, guildId) => {
+    const songsPerPage = config.songsPerPage;    
     const queue = client.queue;
-    const songsPerPage = config.songsPerPage;
-    const serverQueue = queue.get(message.guild.id);
-
-    if (!serverQueue) return message.reply('Not playing any songs or some shit.');
-
-    var qMessage = '';
-    var totalDuration = 0;
-    var i = 1;
+    const serverQueue = queue.get(guildId);
 
     var messageEmbed = new MessageEmbed()
         .setTitle('**Songs in queueueueueueue:**');
 
-    serverQueue.songs.forEach(song => {
-        qMessage+= `**${i} - ${song.title} - ${song.duration}**\n`;
+    var qMessage = '';
+    var totalDuration = 0;
+    var i = 1;
+    serverQueue.songs.some(song => {
+        if(i <= songsPerPage) qMessage+= `**${i} - ${song.title} - ${song.duration}**\n`;
         totalDuration+=song.durationSeconds;
         i++;
     });
@@ -28,61 +40,56 @@ exports.run = (client, message) => {
     messageEmbed.addField('Currently playing', currentlyPlaying, false);
     messageEmbed.addField('Music queueueueueueue', qMessage, false);
 
-    var date = new Date(null);
-    date.setSeconds(totalDuration);
-    // qMessage+=`\n**Total queueueueueueue duration: ${date.toISOString().substr(11,8)}**`
+    messageEmbed.addField('Total duration: ',  
+            new Date(totalDuration * 1000).toISOString().substr(11, 8));
 
-    const interactionComponents = buttons(client,message);
-
-    messageEmbed.addField('Total duration: ',  date.toISOString().substr(11,8), false);
-    message.channel.send({
-         embeds: [messageEmbed], 
-         components: [interactionComponents]
-        });
-    
+    return messageEmbed;
 }
 
 function buttons(client, message) {
-    var button = new MessageButton();
-    button.userThatCreatedButton = message.author.id;
     const interactionComponents = new MessageActionRow()
         .addComponents(
-            button
-                .setCustomId('PreviousPage')
+            new MessageButton()
+                .setCustomId('previousPageButton')
                 .setEmoji('◀️')
                 .setStyle('SECONDARY')
         )
         .addComponents(
-            button
-                .setCustomId('NextPage')
+            new MessageButton()
+                .setCustomId('nextPageButton')
                 .setEmoji('▶️')
                 .setStyle('SECONDARY')
         )
         .addComponents(
-            button
-                .setCustomId('PlayPause')
+            new MessageButton()
+                .setCustomId('playPauseButton')
                 .setEmoji('⏯')
                 .setStyle('SECONDARY')
         )
         .addComponents(
-            button
-                .setCustomId('Skip')
+            new MessageButton()
+                .setCustomId('skipButton')
                 .setEmoji('⏭')
                 .setStyle('SECONDARY')
         )
         .addComponents(
-            button
-                .setCustomId('Shuffle')
+            new MessageButton()
+                .setCustomId('shuffleButton')
                 .setEmoji('🔀')
                 .setStyle('SECONDARY')
         )
 
-    interactionComponents.userThatCreatedInteractionId = message.author.id;
-
-    console.log('**************BUTTON**************')
-    console.log(button);
-    console.log('**************interactionComponents**************')
-    console.log(interactionComponents)
-
     return interactionComponents;
+}
+
+function queuePage(pageNumber) {
+
+}
+
+exports.previousPage = () => {
+
+}
+
+exports.nextPage = () => {
+
 }
