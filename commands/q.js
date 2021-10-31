@@ -38,7 +38,7 @@ exports.createQueueEmbedMessage = (client, guildId) => {
     if(!qMessage) qMessage = 'No songs in queue';
 
     messageEmbed.addField('Currently playing', currentlyPlaying, false);
-    messageEmbed.addField('Music queueueueueueue', qMessage, false);
+    messageEmbed.addField(`Music queueueueueueue - ${i-1} songs`, qMessage, false);
 
     messageEmbed.addField('Total duration: ',  
             new Date(totalDuration * 1000).toISOString().substr(11, 8));
