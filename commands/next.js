@@ -11,8 +11,10 @@ exports.run = (client, message, args) => {
 
     const position = args[0];
     if (! typeof position == 'number') return message.reply('Argument not a number.');
-
+    console.log(position)
+    console.log(serverQueue.songs)
     serverQueue.songs.unshift(serverQueue.songs.splice(position, 1)[0])
+    console.log(serverQueue.songs)
     message.react('✅')
 
 }
