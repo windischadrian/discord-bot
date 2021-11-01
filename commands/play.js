@@ -111,7 +111,7 @@ async function searchYoutubeByUrlAsync(songUrl) {
 // Search Youtube by playlist url
 async function searchYoutubeByPlaylist(playlistUrl) {
     try {
-        response = await playdl.playlist_info(playlistUrl);
+        response = await playdl.playlist_info(playlistUrl, { incomplete : true });
         title = response.title;
         multipleSongInfo = response.videos;
         return { multipleSongInfo, title};
