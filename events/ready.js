@@ -6,6 +6,8 @@ module.exports = async (client) => {
     change();
 
     function change() {
+        const altName = ['Sandei', 'Mondei', 'Tvesdei', 'Vednesdei', 'Sărzdei', 'Freidei', 'Seturdei', ];
+        const date = new Date();
 
         var welfareVoiceChannel =  client.channels.cache.get('698958944122699878');
         var day = date.getDay();
@@ -17,10 +19,6 @@ module.exports = async (client) => {
     setInterval(change, 1000000);
     
 }
-
-const altName = ['Sandei', 'Mondei', 'Tvesdei', 'Vednesdei', 'Sărzdei', 'Freidei', 'Seturdei', ];
-const date = new Date();
-
 
 
 const cafelutsaCronJob = (client) => new CronJob('00 00 09 * * *', () => {
