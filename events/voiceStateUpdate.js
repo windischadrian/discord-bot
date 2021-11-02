@@ -10,6 +10,7 @@ module.exports = async (client, oldState, newState) => {
     setTimeout(() => { // if 1 (you), wait five minutes
         console.log(!oldState.channel.members.size - 1)
         console.log(!(oldState.channel.members.size - 1))
+        console.log(oldState.channel.members.size)
         // if (!oldState.channel.members.size - 1) // if there's still 1 member, 
         //     {
         //         getVoiceConnection(oldState.guild.id).disconnect(); //leave
