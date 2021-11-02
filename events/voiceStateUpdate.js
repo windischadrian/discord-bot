@@ -1,11 +1,10 @@
 module.exports = async (client, oldState, newState) => {
 
     // if nobody left the channel in question, return.
-    console.log(oldState.channelID);
-    console.log(oldState.guild.me.voice.channelID);
-    console.log(newState.channel);
-    console.log(oldState.channelID !==  oldState.guild.me.voice.channelID || newState.channel);
-    if (oldState.channelID !==  oldState.guild.me.voice.channelID || newState.channel) return;
+    console.log(oldState.channelId);
+    console.log(oldState.guild.me.voice.channelId);
+    console.log(newState);
+    if (oldState.channelId !==  oldState.guild.me.voice.channelId || newState.channel) return;
 
     // otherwise, check how many people are in the channel now
     console.log(oldState.channel.members.size);
