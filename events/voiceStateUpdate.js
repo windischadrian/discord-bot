@@ -8,14 +8,11 @@ module.exports = async (client, oldState, newState) => {
     // otherwise, check how many people are in the channel now
     if (!oldState.channel.members.size - 1) 
     setTimeout(() => { // if 1 (you), wait five minutes
-        console.log(!oldState.channel.members.size - 1)
-        console.log(!(oldState.channel.members.size - 1))
-        console.log(oldState.channel.members.size)
-        // if (!oldState.channel.members.size - 1) // if there's still 1 member, 
-        //     {
-        //         getVoiceConnection(oldState.guild.id).disconnect(); //leave
-        //         console.log('Inactive voice channel, leaving.');
-        //     }
+        if (! (oldState.channel.members.size - 1) ) // if there's still 1 member, 
+            {
+                getVoiceConnection(oldState.guild.id).disconnect(); //leave
+                console.log('Inactive voice channel, leaving.');
+            }
     }, 100000); // (5 min in ms)
 
 };
