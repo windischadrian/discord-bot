@@ -42,6 +42,7 @@ exports.run = async (client, message, args) => {
             songInfo = await searchYoutubeAsync(audioName);
             title = songInfo.title;
             url = songInfo.url;
+            duration = ' - ' + songInfo.duration;
             pushSong(songInfo, serverQueue);
         } break;
         case 'yt_playlist': {
