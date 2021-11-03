@@ -25,6 +25,7 @@ exports.run = async (client, message, args) => {
     const validationResult = await playdl.validate(audioName);
     title = '';
     url = '';
+    duration = '';
 
     switch(validationResult) {
 
@@ -34,6 +35,7 @@ exports.run = async (client, message, args) => {
             songInfo = await searchYoutubeByUrlAsync(audioName);
             title = songInfo.title;
             url = songInfo.url;
+            duration = ' - ' + songInfo.duration;
             pushSong(songInfo, serverQueue);
         } break;
         case 'search': {
@@ -55,7 +57,7 @@ exports.run = async (client, message, args) => {
         }
     }
     
-    messageChannel.send(`Added **${title}** to the queue.\n${url}`);
+    messageChannel.send(`Added **${title}**${duration} to the queue.\n${url}`);
 
     if(!serverQueue.playing) {
         await this.playSong(client, guildId);
