@@ -35,14 +35,14 @@ exports.run = async (client, message, args) => {
             songInfo = await searchYoutubeByUrlAsync(audioName);
             title = songInfo.title;
             url = songInfo.url;
-            duration = ' - ' + songInfo.duration;
+            duration = ' - ' + songInfo.durationRaw;
             pushSong(songInfo, serverQueue);
         } break;
         case 'search': {
             songInfo = await searchYoutubeAsync(audioName);
             title = songInfo.title;
             url = songInfo.url;
-            duration = ' - ' + songInfo.duration;
+            duration = ' - ' + songInfo.durationRaw;
             pushSong(songInfo, serverQueue);
         } break;
         case 'yt_playlist': {
