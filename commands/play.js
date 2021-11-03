@@ -150,6 +150,6 @@ exports.playSong = async (client, guildId) => {
 
     serverQueue.songs.shift();
 
-    serverQueue.textChannel.send(`Playing: **${song.title}** [${song.durationRaw}]`);
+    serverQueue.textChannel.send(`Playing: **${song.title}** [${song.duration}]`);
     
 }
