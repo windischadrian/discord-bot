@@ -10,7 +10,19 @@ module.exports = async (client, oldState, newState) => {
     setTimeout(() => { // if 1 (you), wait five minutes
         if (! (oldState.channel.members.size - 1) ) // if there's still 1 member, 
             {
-                getVoiceConnection(oldState.guild.id).disconnect(); //leave
+                const guildId = oldState.guild.id;
+                let queue = client.queue;
+                let connection = queue.get(guildId).connection;
+            
+                if (!connection) return;
+            
+                connection.disconnect();
+                connection.destroy();
+            
+                queue.delete(guildId);
+                const generalChannel = client.channels.cache.find(c => c.name === `general`);
+                if (generalChannel) generalChannel.send('Inactive voice channel, leaving.')
+
                 console.log('Inactive voice channel, leaving.');
             }
     }, 100000); // (5 min in ms)
