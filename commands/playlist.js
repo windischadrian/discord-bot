@@ -6,10 +6,10 @@ exports.run = (client, message, args) => {
     const voiceChannel = message.member.voice.channel;
     const messageChannel = message.channel;
 
-    const playlistUrl = 'https://www.youtube.com/playlist?list=PLZbtvStE3g4tu6Im9sCaRBwwHwIsUHNn5';
+    const playlistUrl = new Array('https://www.youtube.com/playlist?list=PLZbtvStE3g4tu6Im9sCaRBwwHwIsUHNn5');
 
     var serverQueue = queue.get(guildId);
-    if (serverQueue) message.reply('Already playing something, will not add playlist to queue.');
+    if (serverQueue) return message.reply('Already playing something, will not add playlist to queue.');
 
     try {
         joinCommand.run(client, message, playlistUrl);
