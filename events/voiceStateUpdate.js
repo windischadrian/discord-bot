@@ -20,7 +20,7 @@ module.exports = async (client, oldState, newState) => {
                 connection.destroy();
             
                 queue.delete(guildId);
-                const generalChannel = client.channels.cache.find(c => c.name === `general`);
+                const generalChannel = client.channels.cache.find(c => c.name === `bot`);
                 if (generalChannel) generalChannel.send('Inactive voice channel, leaving.')
 
                 console.log('Inactive voice channel, leaving.');
