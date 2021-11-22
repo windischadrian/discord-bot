@@ -63,7 +63,8 @@ exports.run = async (client, message, args) => {
     if(!serverQueue.playing) {
         await this.playSong(client, guildId);
         
-        serverQueue.musicStream.on(AudioPlayerStatus.Idle, () => {
+        serverQueue.musicStream.on(AudioPlayerStatus.Idle, async () => {
+            console.log('PlayerState IDLE, playing next song.' + title)
             serverQueue.playing = false;
             this.playSong(client, guildId)
         });
