@@ -68,6 +68,11 @@ exports.run = async (client, message, args) => {
             serverQueue.playing = false;
             this.playSong(client, guildId)
         });
+
+        serverQueue.musicStream.on('error', error => {
+            console.error(`Error: ${error.message}`);
+            this.playSong(client, guildId);
+        })
     }
 
 }
