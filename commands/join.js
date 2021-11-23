@@ -1,4 +1,4 @@
-const { joinVoiceChannel, createAudioPlayer, NoSubscriberBehavior } = require('@discordjs/voice');
+const { joinVoiceChannel, createAudioPlayer, NoSubscriberBehavior, AudioPlayerStatus } = require('@discordjs/voice');
 const config = require('../config.json')
 
 exports.run = (client, message) => {
@@ -40,7 +40,7 @@ exports.run = (client, message) => {
         console.error(`Error: ${error.message}`);
         this.playSong(client, guildId);
     })
-    
+
     queue.set(guildId, serverQueue);
     message.react('✅')
 

@@ -2,7 +2,7 @@ const playdl = require('play-dl');
 const joinCommand = require('./join.js');
 const config = require('../config.json');
 
-const { createAudioResource, AudioPlayerStatus } = require('@discordjs/voice');
+const { createAudioResource } = require('@discordjs/voice');
 exports.run = async (client, message, args) => {
 
     const guildId = message.guild.id;
