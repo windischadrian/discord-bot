@@ -29,7 +29,18 @@ exports.run = (client, message) => {
         volume: 5,
         playing: false,
     }
+       
+    serverQueue.musicStream.on(AudioPlayerStatus.Idle, async () => {
+        console.log('PlayerState IDLE, playing next song.' + title)
+        serverQueue.playing = false;
+        this.playSong(client, guildId)
+    });
 
+    serverQueue.musicStream.on('error', error => {
+        console.error(`Error: ${error.message}`);
+        this.playSong(client, guildId);
+    })
+    
     queue.set(guildId, serverQueue);
     message.react('✅')
 
