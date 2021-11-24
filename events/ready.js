@@ -11,9 +11,15 @@ module.exports = async (client) => {
 
         var welfareVoiceChannel =  client.channels.cache.get('698958944122699878');
         var day = date.getDay();
-        var newName = 'Welfare ' + altName[day];
-    
-        welfareVoiceChannel.setName(newName);
+
+        try {
+            var newName = 'Welfare ' + altName[day];
+        
+            welfareVoiceChannel.setName(newName);
+
+        } catch (err) {
+            console.log(err)
+        }
     }
     
     setInterval(change, 1000000);
@@ -22,8 +28,12 @@ module.exports = async (client) => {
 
 
 const cafelutsaCronJob = (client) => new CronJob('00 00 09 * * *', () => {
-
     var generalTextChannel = client.channels.cache.get('788439966975000576');
-    generalTextChannel.send('Va urez spor la cafelutsa si sa aveti o zi minunata!');
+
+    try {
+        generalTextChannel.send('Va urez spor la cafelutsa si sa aveti o zi minunata!');
+    } catch (err) {
+        console.log(err)
+    }
 
 }, null, true, 'Europe/Bucharest');
