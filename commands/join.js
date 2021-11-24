@@ -1,5 +1,6 @@
 const { joinVoiceChannel, createAudioPlayer, NoSubscriberBehavior, AudioPlayerStatus } = require('@discordjs/voice');
 const config = require('../config.json')
+const playCommand = require('./play.js');
 
 exports.run = (client, message) => {
     const voiceChannel = message.member.voice.channel;
@@ -33,12 +34,12 @@ exports.run = (client, message) => {
     serverQueue.musicStream.on(AudioPlayerStatus.Idle, async () => {
         console.log('PlayerState IDLE, playing next song.' + title)
         serverQueue.playing = false;
-        this.playSong(client, guildId)
+        playCommand.playSong(client, guildId)
     });
 
     serverQueue.musicStream.on('error', error => {
         console.error(`Error: ${error.message}`);
-        this.playSong(client, guildId);
+        playCommand.playSong(client, guildId);
     })
 
     queue.set(guildId, serverQueue);
