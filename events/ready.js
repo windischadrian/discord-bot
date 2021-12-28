@@ -2,7 +2,6 @@ const { CronJob } = require('cron');
 
 module.exports = async (client) => {
     console.log("Bot is ready");
-    cafelutsaCronJob(client).start();
     change();
 
     function change() {
@@ -25,15 +24,3 @@ module.exports = async (client) => {
     setInterval(change, 1000000);
     
 }
-
-
-const cafelutsaCronJob = (client) => new CronJob('00 00 09 * * *', () => {
-    var generalTextChannel = client.channels.cache.get('788439966975000576');
-
-    try {
-        generalTextChannel.send('Va urez spor la cafelutsa si sa aveti o zi minunata!');
-    } catch (err) {
-        console.log(err)
-    }
-
-}, null, true, 'Europe/Bucharest');
