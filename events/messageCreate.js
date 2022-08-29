@@ -29,17 +29,7 @@ module.exports = async (client, message) => {
 };
 
 function hei(message, messageText) {
-    if (messageText.includes('miau')) {
-        message.reply('Imi bag pula in mieunatu tau coaie');
-    } else if (messageText.includes('babilon')) {
-        message.reply('Baga-ti-as babilonu in cur');
-    } else if (messageText.match(/(ei|3|ei\?|ei \?|3\?|3 \?)$/)) {
-        message.reply('De pula sa ma iei hei hei');
-    } else if (messageText.match(/(cinci|5|cinci\?|cinci \?|5\?|5 \?)$/)) {
-        message.reply('In cur ma lingi');
-    } else if (messageText.match(/(arici|arici\?|arici \?)$/)) {
-        message.reply('Du-te-n pula mea de aici');
-    } else if (messageText.match(/(sinucid|suicid|ma omor)/)) {
+	if (messageText.match(/(sinucid|suicid|ma omor)/)) {
         message.reply(config.bahoiSuicid);
     }
 }
