@@ -32,10 +32,12 @@ exports.run = (client, message) => {
     }
        
     serverQueue.musicStream.on(AudioPlayerStatus.Idle, async () => {
-        if(songs[0]) console.log('PlayerState IDLE, playing next song.' + songs[0].title)
-        
-        serverQueue.playing = false;
-        playCommand.playSong(client, guildId)
+        if(serverQueue.songs[0]) {
+            console.log('PlayerState IDLE, playing next song.' + songs[0].title)
+            
+            serverQueue.playing = false;
+            playCommand.playSong(client, guildId)
+        }
     });
 
     serverQueue.musicStream.on('error', error => {
