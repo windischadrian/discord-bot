@@ -135,20 +135,27 @@ exports.playSong = async (client, guildId) => {
         queue.delete(guildId);
         return;
     }
+    let stream;
+    try {
+        stream = await playdl.stream(song.url);
 
-    const stream = await playdl.stream(song.url);
-    let resource = createAudioResource(stream.stream, {
-        inputType: stream.type
-    })
 
-    serverQueue.musicStream.play(resource);
-    serverQueue.connection.subscribe(serverQueue.musicStream);
+        let resource = createAudioResource(stream.stream, {
+            inputType: stream.type
+        })
 
-    serverQueue.playing = true;
-    serverQueue.songPlayingTitle = song.title
+        serverQueue.musicStream.play(resource);
+        serverQueue.connection.subscribe(serverQueue.musicStream);
 
-    serverQueue.songs.shift();
+        serverQueue.playing = true;
+        serverQueue.songPlayingTitle = song.title;
 
-    serverQueue.textChannel.send(`Playing: **${song.title}** [${song.duration}]`);
+        serverQueue.textChannel.send(`Playing: **${song.title}** [${song.duration}]`);
+    } catch (err) {
+        serverQueue.textChannel.send('Error, video requires age verification. Song was not added into the queue.');
+        
+        console.log(err);
+    }
     
+    serverQueue.songs.shift();
 }

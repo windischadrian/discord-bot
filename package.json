@@ -22,7 +22,8 @@
     "libsodium-wrappers": "^0.7.9",
     "nodemon": "^2.0.13",
     "play-dl": "^1.1.7",
-    "youtube-search-without-api-key": "^1.0.6"
+    "youtube-search-without-api-key": "^1.0.6",
+    "yt-dlp-wrap": "^2.3.11"
   },
   "engines": {
     "node": "16.11.1"
