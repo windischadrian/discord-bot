@@ -11,7 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@discordjs/voice": "^0.6.0",
+    "@discordjs/voice": "^0.16.0",
     "cron": "^1.8.2",
     "datetime": "^0.0.3",
     "discord.js": "^13.2.0",

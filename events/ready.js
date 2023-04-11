@@ -15,6 +15,7 @@ module.exports = async (client) => {
             var newName = 'Welfare ' + altName[day];
         
             welfareVoiceChannel.setName(newName);
+            console.log(newName)
 
         } catch (err) {
             console.log(err)
