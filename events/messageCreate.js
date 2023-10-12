@@ -29,7 +29,7 @@ module.exports = async (client, message) => {
 };
 
 function hei(message, messageText) {
-	if (messageText.toLowerCase().match(/(sinucid|suicid|ma omor)/)) {
+	if (messageText.toLowerCase().match(/(sinucid|suicid|ma omor|maomor|ma.omor)/)) {
         message.reply(config.bahoiSuicid);
     }
 }
