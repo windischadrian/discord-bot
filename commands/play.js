@@ -30,20 +30,36 @@ exports.run = async (client, message, args) => {
     switch(validationResult) {
 
         case 'yt_video' : {
-            message.suppressEmbeds(true);
-            audioName=audioName.trim();
-            songInfo = await searchYoutubeByUrlAsync(audioName);
-            title = songInfo.title;
-            url = songInfo.url;
-            duration = ' [' + songInfo.durationRaw + ']'
-            pushSong(songInfo, serverQueue);
+            try {
+                message.suppressEmbeds(true);
+                audioName=audioName.trim();
+                songInfo = await searchYoutubeByUrlAsync(audioName);
+                title = songInfo.title;
+                url = songInfo.url;
+                duration = ' [' + songInfo.durationRaw + ']'
+                pushSong(songInfo, serverQueue);
+
+                messageChannel.send(`Added **${title}**${duration} to the queue.\n${url}`);
+            } catch (err) {
+                console.log(err)
+                messageChannel.send(`Error playing song.`)
+            }
+            
         } break;
         case 'search': {
-            songInfo = await searchYoutubeAsync(audioName);
-            title = songInfo.title;
-            url = songInfo.url;
-            duration = ' [' + songInfo.durationRaw + ']'
-            pushSong(songInfo, serverQueue);
+            try {
+                songInfo = await searchYoutubeAsync(audioName);
+                title = songInfo.title;
+                url = songInfo.url;
+                duration = ' [' + songInfo.durationRaw + ']'
+                pushSong(songInfo, serverQueue);
+
+                messageChannel.send(`Added **${title}**${duration} to the queue.\n${url}`);
+            } catch (err) {
+                console.log(err)
+                messageChannel.send(`Error playing song.`)
+            }
+            
         } break;
         case 'yt_playlist': {
             try {
@@ -51,14 +67,14 @@ exports.run = async (client, message, args) => {
                 multipleSongInfo = functionResult.multipleSongInfo;
                 title = functionResult.title;
                 pushSongsFromPlaylist(multipleSongInfo, serverQueue);
+
+                messageChannel.send(`Added **${title}** playlist to the queue.\n${url}`);
             } catch (err) {
                 console.log(err)
                 return message.reply('Playlist has unavailable tracks. Cannot play');
             }
         }
     }
-    
-    messageChannel.send(`Added **${title}**${duration} to the queue.\n${url}`);
 
     if(!serverQueue.playing) {
         await this.playSong(client, guildId);
