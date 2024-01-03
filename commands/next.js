@@ -9,6 +9,8 @@ exports.run = (client, message, args) => {
 
     if (args.length > 1) return message.reply('Too many arguments.');
 
+    if (args.length == 0) return message.reply('Need arguments you fucking retard.');
+
     const position = args[0]-1;
     if (! typeof position == 'number') return message.reply('Argument not a number.');
     console.log(position)
