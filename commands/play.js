@@ -168,7 +168,7 @@ exports.playSong = async (client, guildId) => {
 
         serverQueue.textChannel.send(`Playing: **${song.title}** [${song.duration}]`);
     } catch (err) {
-        serverQueue.textChannel.send('Error, video requires age verification. Song was not added into the queue.');
+        serverQueue.textChannel.send('Error, video requires age verification (probably, lol). Song was not added into the queue.');
         
         console.log(err);
     }
