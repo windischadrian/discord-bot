@@ -155,6 +155,11 @@ exports.playSong = async (client, guildId) => {
     try {
         stream = await playdl.stream(song.url);
 
+        console.log(`Song url:`)
+        console.log(song.url)
+        console.log(`Stream:`)
+        console.log(stream)
+
 
         let resource = createAudioResource(stream.stream, {
             inputType: stream.type
