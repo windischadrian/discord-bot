@@ -160,6 +160,9 @@ exports.playSong = async (client, guildId) => {
             inputType: stream.type
         })
 
+        console.log(`Resource:`)
+        console.log(resource)
+
         serverQueue.musicStream.play(resource);
         serverQueue.connection.subscribe(serverQueue.musicStream);
 
