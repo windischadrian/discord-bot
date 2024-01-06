@@ -30,6 +30,9 @@ exports.run = (client, message) => {
         volume: 5,
         playing: false,
     }
+
+    console.log(`Server Queue:`)
+    console.log(serverQueue)
        
     serverQueue.musicStream.on(AudioPlayerStatus.Idle, async () => {
         if(serverQueue.songs[0]) {
