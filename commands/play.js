@@ -144,13 +144,6 @@ exports.playSong = async (client, guildId) => {
 
     const song = serverQueue.songs[0];
 
-    if (!song) {
-        connection = serverQueue.connection;
-        connection.disconnect();
-        connection.destroy();
-        queue.delete(guildId);
-        return;
-    }
     let stream;
     try {
         stream = await playdl.stream(song.url);
@@ -172,5 +165,16 @@ exports.playSong = async (client, guildId) => {
         console.log(err);
     }
     
+    console.log(serverQueue.songs[1])
+    console.log(serverQueue.songs)
+    if(!serverQueue.songs[1]) {
+        serverQueue.textChannel.send('No more songs in queue, bye.');
+        connection = serverQueue.connection;
+        connection.disconnect();
+        connection.destroy();
+        queue.delete(guildId);
+        return;
+    }
+
     serverQueue.songs.shift();
 }
